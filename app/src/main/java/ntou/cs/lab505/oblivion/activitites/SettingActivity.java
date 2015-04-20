@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +92,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
+        // tabs name string.
         private String[] SECTIONTABS = {"I/O", "Default Mode","Frequency Shift", "Bane", "Gain"};
 
         public AppSectionsPagerAdapter(FragmentManager fm) {
@@ -154,55 +156,62 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     }
 
     public static class FrequencyShiftSectionFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
-        View rootView;
-        TextView fsValue;
-        SeekBar seekbar;
+        private View rootView;
+        private TextView fsValue;
+        private SeekBar seekbar;
+        private int seekBarValue = 0;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             this.rootView = inflater.inflate(R.layout.fragment_freqshift, container, false);
             this.fsValue = (TextView) rootView.findViewById(R.id.fsvalue_fragment_freqshift);
             this.seekbar = (SeekBar) rootView.findViewById(R.id.seekBar_fragment_freqshift);
-
-            //fsValue.setText("12123");  // ??????????????????????????????????????????????????????????????????/
+            // add listener.
+            seekbar.setOnSeekBarChangeListener(this);
 
             return rootView;
         }
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+            seekBarValue = progress - 24;
+            fsValue.setText(seekBarValue + "");
+            //Log.d("SettingActivity", "FrequencyShiftSectionFragment, " + "seekbar onProgressChanged:  " + seekValue);
         }
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-
+            //
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-
+            //
         }
     }
 
     public static class BankCutSectionFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
 
-        View rootView;
-        SeekBar seekBar;
-        TextView bankcutNumber;
+        private View rootView;
+        private SeekBar seekBar;
+        private TextView bankcutNumber;
+        int seekBarValue;
 
          @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
              this.rootView = inflater.inflate(R.layout.fragment_bankcut, container, false);
-             this.seekBar = (SeekBar) rootView.findViewById(R.id.seekBar_fragment_bankcut);
              this.bankcutNumber = (TextView) rootView.findViewById(R.id.bcnumber_fragment_bankcut);
+             this.seekBar = (SeekBar) rootView.findViewById(R.id.seekBar_fragment_bankcut);
+             // Add listener.  This step is very important.
+             seekBar.setOnSeekBarChangeListener(this);
 
              return rootView;
         }
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            bankcutNumber.setText(String.valueOf(progress));  // ??????????????????????????????????????????????????????????????
+            seekBarValue = progress;
+            bankcutNumber.setText(String.valueOf(seekBarValue));
         }
 
         @Override

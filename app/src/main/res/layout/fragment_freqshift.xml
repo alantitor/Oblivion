@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/seekBar_fragment_freqshift"
             android:progress="25"
-            android:max="49"/>
+            android:max="48"/>
 
     </LinearLayout>
 

@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small Text"/>
+                android:text="適用於"/>
             </LinearLayout>
 
         <RelativeLayout
@@ -42,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/radioButton1_fragment_defaultmode"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:checked="true"/>
         </RelativeLayout>
 
     </LinearLayout>
@@ -74,7 +75,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small Text"/>
+                android:text="適用於"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -119,7 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small Text"/>
+                android:text="適用於"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -164,7 +165,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small Text"/>
+                android:text="適用於"/>
         </LinearLayout>
 
         <RelativeLayout
