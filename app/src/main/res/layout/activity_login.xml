@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2d2d2d">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name2"
+            android:textColor="#4183c4"
+            android:textSize="30dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/account_activity_login"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:height="50dp"
+                android:minHeight="50dp"
+                android:width="300dp"
+                android:minWidth="300dp"
+                android:hint="Enter your account"
+                android:gravity="center"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:textColor="#606060"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/password_activity_login"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                android:height="50dp"
+                android:minHeight="50dp"
+                android:width="300dp"
+                android:minWidth="300dp"
+                android:gravity="center"
+                android:hint="Enter your password"
+                android:singleLine="true"
+                android:imeOptions="actionSend"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_activity_login"
+                android:layout_weight="1"
+                android:text="Sign In"
+                android:textSize="22dp"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:background="#4183c4"
+                android:height="50dp"
+                android:width="300dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:onClick="logIn"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </RelativeLayout>
+
+</LinearLayout>
