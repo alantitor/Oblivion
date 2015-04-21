@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="適用於"/>
+                android:text="適用於傳音性重聽"/>
             </LinearLayout>
 
         <RelativeLayout
@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="適用於"/>
+                android:text="適用於傳音神經性重聽"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="適用於"/>
+                android:text="適用於混合性重聽"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -165,7 +165,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="適用於"/>
+                android:text="自行設定參數"/>
         </LinearLayout>
 
         <RelativeLayout

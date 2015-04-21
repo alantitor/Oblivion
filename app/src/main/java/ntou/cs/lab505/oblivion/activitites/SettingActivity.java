@@ -9,10 +9,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -77,7 +78,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
      */
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
+        //
     }
 
     /**
@@ -87,7 +88,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
      */
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
+        //
     }
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
@@ -140,32 +141,124 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     }
 
     public static class IOSectionFragment extends Fragment {
+        private View rootView;
+        private LinearLayout layout1;
+        private LinearLayout layout2;
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_io, container, false);
+            this.rootView = inflater.inflate(R.layout.fragment_io, container, false);
+            this.layout1 = (LinearLayout) rootView.findViewById(R.id.layout1_fragment_io);
+            this.layout2 = (LinearLayout) rootView.findViewById(R.id.layout2_fragment_io);
+            // add listener.
+            layout1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onButton1Clicked();
+                }
+            });
+            layout2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onButton2Clicked();
+                }
+            });
+
             return rootView;
+        }
+
+        public void onButton1Clicked() {
+
+        }
+
+        public void onButton2Clicked() {
+
         }
     }
 
     public static class DefaultModeSectionFragment extends Fragment {
+        // objects
+        private View rootView;
+        private RadioButton rB1;  // 低頻音加強.  0
+        private RadioButton rB2;  // 高頻音加強.  1
+        private RadioButton rB3;  // 混合性加強.  2
+        private RadioButton rB4;  // 自訂.  3
+        // parameters
+        private int selectedValue;  // denote selected button.
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_defaultmode, container, false);
+            this.rootView = inflater.inflate(R.layout.fragment_defaultmode, container, false);
+            this.rB1 = (RadioButton) rootView.findViewById(R.id.radioButton1_fragment_defaultmode);
+            this.rB2 = (RadioButton) rootView.findViewById(R.id.radioButton2_fragment_defaultmode);
+            this.rB3 = (RadioButton) rootView.findViewById(R.id.radioButton3_fragment_defaultmode);
+            this.rB4 = (RadioButton) rootView.findViewById(R.id.radioButton4_fragment_defaultmode);
+            this.selectedValue = -1;
+
+            // add listener
+            rB1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedValue = 0;
+                    rB1.setChecked(true);
+                    rB2.setChecked(false);
+                    rB3.setChecked(false);
+                    rB4.setChecked(false);
+                }
+            });
+
+            rB2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedValue = 1;
+                    rB1.setChecked(false);
+                    rB2.setChecked(true);
+                    rB3.setChecked(false);
+                    rB4.setChecked(false);
+                }
+            });
+
+            rB3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedValue = 2;
+                    rB1.setChecked(false);
+                    rB2.setChecked(false);
+                    rB3.setChecked(true);
+                    rB4.setChecked(false);
+                }
+            });
+
+            rB4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedValue = 3;
+                    rB1.setChecked(false);
+                    rB2.setChecked(false);
+                    rB3.setChecked(false);
+                    rB4.setChecked(true);
+                }
+            });
+
             return rootView;
         }
     }
 
     public static class FrequencyShiftSectionFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
+        // objects
         private View rootView;
         private TextView fsValue;
         private SeekBar seekbar;
-        private int seekBarValue = 0;
+        // parameters
+        private int seekBarValue;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             this.rootView = inflater.inflate(R.layout.fragment_freqshift, container, false);
             this.fsValue = (TextView) rootView.findViewById(R.id.fsvalue_fragment_freqshift);
             this.seekbar = (SeekBar) rootView.findViewById(R.id.seekBar_fragment_freqshift);
+            this.seekBarValue = 0;
+
             // add listener.
             seekbar.setOnSeekBarChangeListener(this);
 
@@ -175,7 +268,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             seekBarValue = progress - 24;
-            fsValue.setText(seekBarValue + "");
+            fsValue.setText(String.valueOf(seekBarValue));
             //Log.d("SettingActivity", "FrequencyShiftSectionFragment, " + "seekbar onProgressChanged:  " + seekValue);
         }
 

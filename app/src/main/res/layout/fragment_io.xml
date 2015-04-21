@@ -17,13 +17,20 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:id="@+id/layout1_fragment_io"
+            android:clickable="true"
+            android:onClick="onButton1Clicked">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="輸入音訊"
                 android:textColor="#2d2d2d"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="設定輸入音訊來源"/>
 
         </LinearLayout>
 
@@ -45,14 +52,20 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:id="@+id/layout2_fragment_io"
+            android:clickable="true"
+            android:onClick="onButton2Clicked">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="輸出音訊"
                 android:textColor="#2d2d2d"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="設定輸出音訊位置"/>
         </LinearLayout>
 
     </LinearLayout>
