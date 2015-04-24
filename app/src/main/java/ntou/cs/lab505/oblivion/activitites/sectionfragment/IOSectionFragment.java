@@ -3,6 +3,7 @@ package ntou.cs.lab505.oblivion.activitites.sectionfragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,16 +75,30 @@ public class IOSectionFragment extends Fragment {
         return rootView;
     }
 
-    OnDataPass dataPasser;
+    OnIODataListener mCallback;
 
-    public interface OnDataPass {
-        public void onDataPass(int data);
+    public interface OnIODataListener {
+        public void OnIODataPass(String data);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-
+        try {
+            mCallback = (OnIODataListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnIODataListener");
+        }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // compress data and pass.
+        String data = rg1Value + "," + rg2Value + "";
+        mCallback.OnIODataPass(data);
+    }
+
 }

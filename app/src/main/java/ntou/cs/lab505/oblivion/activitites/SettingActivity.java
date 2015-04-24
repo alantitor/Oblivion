@@ -15,7 +15,12 @@ import ntou.cs.lab505.oblivion.R;
 import ntou.cs.lab505.oblivion.activitites.sectionfragment.*;
 
 
-public class SettingActivity extends FragmentActivity implements ActionBar.TabListener, GainSectionFragment.OnHeadlineSelectedListener {
+public class SettingActivity extends FragmentActivity implements ActionBar.TabListener,
+                                                                GainSectionFragment.OnGainDataListener,
+                                                                IOSectionFragment.OnIODataListener,
+                                                                DefaultModeSectionFragment.OnDMDataListener,
+                                                                FrequencyShiftSectionFragment.OnFSDataListener,
+                                                                BandCutSectionFragment.OnBCDataListener {
 
     AppSectionsPagerAdapter mAppSectionsPagerAdapter;
     ViewPager mViewPager;
@@ -90,9 +95,33 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         //
     }
 
+    /**
+     *
+     * @param data
+     */
     @Override
-    public void onArticleSelected(int position) {
-        Log.d("LOG", "hello " + position);
+    public void OnGainDataPass(String data) {
+       //Log.d("OngainDataPass", data);
+    }
+
+    @Override
+    public void OnIODataPass(String data) {
+        //Log.d("OnIODataPass", data);
+    }
+
+    @Override
+    public void OnDMDataPass(String data) {
+        //Log.d("OnDMDataPass", data);
+    }
+
+    @Override
+    public void OnFSDataPass(String data) {
+        //Log.d("OnFSDataPass", data);
+    }
+
+    @Override
+    public void OnBCDataPass(String data) {
+        //Log.d("OnBCDataPass", data + "12");
     }
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {

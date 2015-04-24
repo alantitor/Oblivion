@@ -1,5 +1,6 @@
 package ntou.cs.lab505.oblivion.activitites.sectionfragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.security.AccessControlContext;
 import java.util.ArrayList;
 
 import ntou.cs.lab505.oblivion.R;
@@ -69,5 +71,31 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         //
+    }
+
+    OnBCDataListener mCallback;
+
+    public interface OnBCDataListener {
+        public void OnBCDataPass(String data);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            mCallback = (OnBCDataListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnBCDataPass");
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String data = "";
+        mCallback.OnBCDataPass(data);
     }
 }

@@ -1,5 +1,6 @@
 package ntou.cs.lab505.oblivion.activitites.sectionfragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -50,5 +51,31 @@ public class FrequencyShiftSectionFragment extends Fragment implements SeekBar.O
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         //
+    }
+
+    OnFSDataListener mCallback;
+
+    public interface OnFSDataListener {
+        public void OnFSDataPass(String data);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            mCallback = (OnFSDataListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFSDataPass");
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String data = seekBarValue + "";
+        mCallback.OnFSDataPass(data);
     }
 }

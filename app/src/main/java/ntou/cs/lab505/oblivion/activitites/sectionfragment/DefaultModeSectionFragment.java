@@ -1,5 +1,6 @@
 package ntou.cs.lab505.oblivion.activitites.sectionfragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -77,5 +78,31 @@ public class DefaultModeSectionFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    OnDMDataListener mCallback;
+
+    public interface OnDMDataListener {
+        public void OnDMDataPass(String data);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            mCallback = (OnDMDataListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnDMDataPass");
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String data = selectedValue + "";
+        mCallback.OnDMDataPass(data);
     }
 }
