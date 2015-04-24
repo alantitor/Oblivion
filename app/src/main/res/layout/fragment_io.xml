@@ -11,14 +11,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/layout1_fragment_io"
             android:clickable="true"
             android:onClick="onButton1Clicked">
 
@@ -34,6 +33,46 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radiogroup1_fragment_io">
+
+                   <RadioButton
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="內建麥克風"
+                       android:textColor="#2d2d2d"
+                       android:id="@+id/radio1_fragment_io"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="藍芽耳機麥克風"
+                        android:textColor="#2d2d2d"
+                        android:id="@+id/radio2_fragment_io"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="內部音源"
+                        android:textColor="#2d2d2d"
+                        android:id="@+id/radio3_fragment_io"/>
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <View
@@ -46,14 +85,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/layout2_fragment_io"
             android:clickable="true"
             android:onClick="onButton2Clicked">
 
@@ -66,6 +104,46 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="設定輸出音訊位置"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radiogroup2_fragment_io">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="內建揚聲器"
+                        android:textColor="#2d2d2d"
+                        android:id="@+id/radio4_fragment_io"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="藍芽耳機揚聲器"
+                        android:textColor="#2d2d2d"
+                        android:id="@+id/radio5_fragment_io"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="存檔"
+                        android:textColor="#2d2d2d"
+                        android:id="@+id/radio6_fragment_io"/>
+                </RadioGroup>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
