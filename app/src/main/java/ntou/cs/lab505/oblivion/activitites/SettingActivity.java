@@ -9,18 +9,17 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import ntou.cs.lab505.oblivion.R;
-import ntou.cs.lab505.oblivion.activitites.sectionfragment.*;
+import ntou.cs.lab505.oblivion.activitites.sectionfragment.BandCutSectionFragment;
+import ntou.cs.lab505.oblivion.activitites.sectionfragment.DefaultModeSectionFragment;
+import ntou.cs.lab505.oblivion.activitites.sectionfragment.DummySectionFragment;
+import ntou.cs.lab505.oblivion.activitites.sectionfragment.FrequencyShiftSectionFragment;
+import ntou.cs.lab505.oblivion.activitites.sectionfragment.GainSectionFragment;
+import ntou.cs.lab505.oblivion.activitites.sectionfragment.IOSectionFragment;
 
 
-public class SettingActivity extends FragmentActivity implements ActionBar.TabListener,
-                                                                GainSectionFragment.OnGainDataListener,
-                                                                IOSectionFragment.OnIODataListener,
-                                                                DefaultModeSectionFragment.OnDMDataListener,
-                                                                FrequencyShiftSectionFragment.OnFSDataListener,
-                                                                BandCutSectionFragment.OnBCDataListener {
+public class SettingActivity extends FragmentActivity implements ActionBar.TabListener, DefaultModeSectionFragment.OnDMDataListener{
 
     AppSectionsPagerAdapter mAppSectionsPagerAdapter;
     ViewPager mViewPager;
@@ -60,8 +59,6 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
                              .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                              .setTabListener(this));
         }
-
-
     }
 
     /**
@@ -96,36 +93,30 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     }
 
     /**
-     *
+     * the data transmission interface.
      * @param data
      */
     @Override
-    public void OnGainDataPass(String data) {
-       //Log.d("OngainDataPass", data);
-    }
-
-    @Override
-    public void OnIODataPass(String data) {
-        //Log.d("OnIODataPass", data);
-    }
-
-    @Override
     public void OnDMDataPass(String data) {
+
+        // receive data from A fragment.
         //Log.d("OnDMDataPass", data);
-    }
-
-    @Override
-    public void OnFSDataPass(String data) {
-        //Log.d("OnFSDataPass", data);
-    }
-
-    @Override
-    public void OnBCDataPass(String data) {
-        //Log.d("OnBCDataPass", data + "12");
+        // pass data to another fragments.
+        BandCutSectionFragment bandCutSectionFragment = (BandCutSectionFragment) AppSectionsPagerAdapter.bandCutSectionFragment;
+        GainSectionFragment gainSectionFragment = (GainSectionFragment) AppSectionsPagerAdapter.gainSectionFragment;
+        bandCutSectionFragment.updataFlag(data);
+        gainSectionFragment.updataFlag(data);
     }
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
+        // fragment objects
+        public static IOSectionFragment ioSectionFragment;
+        public static DefaultModeSectionFragment defaultModeSectionFragment;
+        public static FrequencyShiftSectionFragment frequencyShiftSectionFragment;
+        public static BandCutSectionFragment bandCutSectionFragment;
+        public static GainSectionFragment gainSectionFragment;
+        public static DummySectionFragment dummySectionFragment;
         // tabs name string.
         private String[] SECTIONTABS = {"I/O", "Default Mode","Frequency Shift", "Bane", "Gain"};
 
@@ -143,24 +134,29 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
             switch (i) {
                 case 0:
                     // I/O setting fragment
-                    return new IOSectionFragment();
+                    ioSectionFragment = new IOSectionFragment();
+                    return ioSectionFragment;
                 case 1:
                     // model setting fragment
-                    return new DefaultModeSectionFragment();
+                    defaultModeSectionFragment = new DefaultModeSectionFragment();
+                    return defaultModeSectionFragment;
                 case 2:
                     // frequency shift setting fragment
-                    return new FrequencyShiftSectionFragment();
+                    frequencyShiftSectionFragment = new FrequencyShiftSectionFragment();
+                    return frequencyShiftSectionFragment;
                 case 3:
                     // bank cut setting fragment
-                    return new BandCutSectionFragment();
+                    bandCutSectionFragment = new BandCutSectionFragment();
+                    return bandCutSectionFragment;
                 case 4:
                     // gain setting fragment
                     //return new GainSectionFragment();
-                    return new GainSectionFragment();
+                    gainSectionFragment = new GainSectionFragment();
+                    return gainSectionFragment;
                 default:
                     // dummy fragment
-                    //return new DummySectionFragment();
-                    return new DummySectionFragment();
+                    dummySectionFragment = new DummySectionFragment();
+                    return dummySectionFragment;
             }
         }
 

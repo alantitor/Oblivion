@@ -41,6 +41,7 @@ public class DefaultModeSectionFragment extends Fragment {
                 rB2.setChecked(false);
                 rB3.setChecked(false);
                 rB4.setChecked(false);
+                mCallback.OnDMDataPass(String.valueOf(selectedValue));
             }
         });
 
@@ -52,6 +53,7 @@ public class DefaultModeSectionFragment extends Fragment {
                 rB2.setChecked(true);
                 rB3.setChecked(false);
                 rB4.setChecked(false);
+                mCallback.OnDMDataPass(String.valueOf(selectedValue));
             }
         });
 
@@ -63,6 +65,7 @@ public class DefaultModeSectionFragment extends Fragment {
                 rB2.setChecked(false);
                 rB3.setChecked(true);
                 rB4.setChecked(false);
+                mCallback.OnDMDataPass(String.valueOf(selectedValue));
             }
         });
 
@@ -74,6 +77,7 @@ public class DefaultModeSectionFragment extends Fragment {
                 rB2.setChecked(false);
                 rB3.setChecked(false);
                 rB4.setChecked(true);
+                mCallback.OnDMDataPass(String.valueOf(selectedValue));
             }
         });
 
@@ -94,7 +98,7 @@ public class DefaultModeSectionFragment extends Fragment {
             mCallback = (OnDMDataListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnDMDataPass");
+                    + " must implement OnBCDataPass");
         }
     }
 
@@ -102,7 +106,6 @@ public class DefaultModeSectionFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        String data = selectedValue + "";
-        mCallback.OnDMDataPass(data);
+        // save data.
     }
 }
