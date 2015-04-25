@@ -18,6 +18,9 @@ public final class TableContract implements BaseColumns{
     // sqlite table name
     public static final String TABLE_USER_ACCOUNT = "user_account";
     public static final String TABLE_SETTING = "setting";
+    public static final String TABLE_IO = "IO";
+    public static final String TABLE_DEFAULTMODE = "default_mode";
+    public static final String TABLE_FREQSHIFT = "freq_shift";
     // sqlite db columns name
     // user_account table
     public static final String T_UA_USERNAME = "user_name";
