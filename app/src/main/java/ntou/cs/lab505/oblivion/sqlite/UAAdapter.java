@@ -28,7 +28,7 @@ public class UAAdapter {
     }
 
     public DBHelper open() {
-        this.mDbHelper = new DBHelper(mCtx);
+        this.mDbHelper = new DBHelper(this.mCtx);
         this.mDb = this.mDbHelper.getWritableDatabase();
         return this.mDbHelper;
     }

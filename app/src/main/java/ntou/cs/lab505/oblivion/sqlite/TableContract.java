@@ -18,18 +18,36 @@ public final class TableContract implements BaseColumns{
     // sqlite table name
     public static final String TABLE_USER_ACCOUNT = "user_account";
     public static final String TABLE_SETTING = "setting";
-    public static final String TABLE_IO = "IO";
-    public static final String TABLE_DEFAULTMODE = "default_mode";
-    public static final String TABLE_FREQSHIFT = "freq_shift";
+    public static final String TABLE_IO = "io_setting";
+    public static final String TABLE_MODE = "mode_setting";
+    public static final String TABLE_FREQSHIFT = "freqshift_setting";
+    public static final String TABLE_BAND = "band_setting";
+    public static final String TABLE_GAIN = "gain_setting";
     // sqlite db columns name
-    // user_account table
+    // user_account table content
     public static final String T_UA_USERNAME = "user_name";
     public static final String T_UA_USERACCOUNT = "user_account";
     public static final String T_UA_USERPASSWORD = "user_password";
     public static final String T_UA_STATE = "state";
-    // setting table
+    // setting table content
     public static final String T_S_USERID = "user_id";
     public static final String T_S_USEIT = "use_it";
     public static final String T_S_STATE = "state";
+    // io_setting table content
+    public static final String T_IO_USERID = "user_id";
+    public static final String T_IO_INPUT = "input";
+    public static final String T_IO_OUTPUT = "output";
+    public static final String T_IO_STATE = "state";
+    // mode_setting table content
+    public static final String T_MODE_USERID = "user_id";
+    public static final String T_MODE_MODE = "mode";
+    public static final String T_MODE_STATE = "state";
+    // freqshift_setting table content
+    public static final String T_FREQSHIFT_USERID = "user_id";
+    public static final String T_FREQSHIFT_SEMITONE = "semitone";
+    public static final String T_FREQSHIFT_STATE = "state";
+    // band_setting table content
+
+    // gain_setting table content
 
 }

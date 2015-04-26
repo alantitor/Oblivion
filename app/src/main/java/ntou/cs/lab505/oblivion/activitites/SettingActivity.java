@@ -118,7 +118,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         public static GainSectionFragment gainSectionFragment;
         public static DummySectionFragment dummySectionFragment;
         // tabs name string.
-        private String[] SECTIONTABS = {"I/O", "Default Mode","Frequency Shift", "Bane", "Gain"};
+        private String[] SECTIONTABS = {"I/O", "Mode","Frequency Shift", "Band", "Gain"};
 
         public AppSectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -130,7 +130,6 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
          */
         @Override
         public Fragment getItem(int i) {
-
             switch (i) {
                 case 0:
                     // I/O setting fragment
@@ -150,7 +149,6 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
                     return bandCutSectionFragment;
                 case 4:
                     // gain setting fragment
-                    //return new GainSectionFragment();
                     gainSectionFragment = new GainSectionFragment();
                     return gainSectionFragment;
                 default:
@@ -171,6 +169,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         }
     }
 }
+
 
 /**
  * Reference:

@@ -40,10 +40,35 @@ public class DBHelper extends SQLiteOpenHelper {
                 TableContract.T_S_USEIT + WS + TableContract.TYPE_INTEGER + CS +
                 TableContract.T_S_STATE + WS + TableContract.TYPE_INTEGER +
                 " )";
+        String SQL_CREATE_TABLE_IO_SETTING =
+                "CREATE TABLE" + WS + TableContract.TABLE_IO + " ( " +
+                TableContract._ID + WS + TableContract.TYPE_INTEGER + WS + " PRIMARY KEY " + CS +
+                TableContract.T_IO_USERID + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_IO_INPUT + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_IO_OUTPUT + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_IO_STATE + WS + TableContract.TYPE_INTEGER +
+                " )";
+        String SQL_CREATE_TABLE_MODE_SETTING =
+                "CREATE TABLE" + WS + TableContract.TABLE_MODE + " ( " +
+                TableContract._ID + WS + TableContract.TYPE_INTEGER + WS + " PRIMARY KEY " + CS +
+                TableContract.T_MODE_USERID + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_MODE_MODE + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_MODE_STATE + WS + TableContract.TYPE_INTEGER +
+                " )";
+        String SQL_CREATE_TABLE_FREQSHIFT_SETTING =
+                "CREATE TABLE" + WS + TableContract.TABLE_FREQSHIFT + " ( " +
+                TableContract._ID + WS + TableContract.TYPE_INTEGER + WS + " PRIMARY KEY " + CS +
+                TableContract.T_FREQSHIFT_USERID + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_FREQSHIFT_SEMITONE + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_FREQSHIFT_STATE + WS + TableContract.TYPE_INTEGER +
+                " )";
 
         // exclude sqlite commands
         db.execSQL(SQL_CREATE_TABLE_UA);
         db.execSQL(SQL_CREATE_TABLE_SETTING);
+        db.execSQL(SQL_CREATE_TABLE_IO_SETTING);
+        db.execSQL(SQL_CREATE_TABLE_MODE_SETTING);
+        db.execSQL(SQL_CREATE_TABLE_FREQSHIFT_SETTING);
 
         // initial db table columns
         // initial user_account table columns
