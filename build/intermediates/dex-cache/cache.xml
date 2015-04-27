@@ -6,21 +6,21 @@
         jumboMode="false"
         revision="21.1.2"
         sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
-        <dex dex="/home/alan/Projects/Android/Oblivion/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-7ddc1844861a0108f45fdfae8b782dd8b50450f4.jar" />
+        <dex dex="/home/alan/Projects/Oblivion/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-7ddc1844861a0108f45fdfae8b782dd8b50450f4.jar" />
     </item>
     <item
-        jar="/home/alan/Projects/Android/Oblivion/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
+        jar="/home/alan/Projects/Oblivion/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
-        <dex dex="/home/alan/Projects/Android/Oblivion/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-3ecf0f79d1ba67aa5b9e9283c6c755e275757287.jar" />
+        <dex dex="/home/alan/Projects/Oblivion/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-4c27da3163c83c654d722f56e3046383f9a43be4.jar" />
     </item>
     <item
-        jar="/home/alan/Projects/Android/Oblivion/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jar="/home/alan/Projects/Oblivion/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
-        <dex dex="/home/alan/Projects/Android/Oblivion/app/build/intermediates/pre-dexed/debug/classes-0f6092da665eb3de0560009ed814d40063df06b5.jar" />
+        <dex dex="/home/alan/Projects/Oblivion/app/build/intermediates/pre-dexed/debug/classes-dac89a0287e06fd2f9721ac14a5bb588775a1d9f.jar" />
     </item>
 
 </items>

@@ -52,7 +52,8 @@
                        android:layout_height="wrap_content"
                        android:text="內建麥克風"
                        android:textColor="#2d2d2d"
-                       android:id="@+id/radio1_fragment_io"/>
+                       android:id="@+id/radio1_fragment_io"
+                       android:checked="true"/>
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -125,7 +126,8 @@
                         android:layout_height="wrap_content"
                         android:text="內建揚聲器"
                         android:textColor="#2d2d2d"
-                        android:id="@+id/radio4_fragment_io"/>
+                        android:id="@+id/radio4_fragment_io"
+                        android:checked="true"/>
 
                     <RadioButton
                         android:layout_width="wrap_content"

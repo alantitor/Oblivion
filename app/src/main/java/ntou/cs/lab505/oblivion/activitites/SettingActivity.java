@@ -38,6 +38,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
         mViewPager = (ViewPager) findViewById(R.id.pager_activity_setting);
+        mViewPager.setOffscreenPageLimit(1);
         mViewPager.setAdapter(mAppSectionsPagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -69,7 +70,11 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // When the given tab is selected, switch to the corresponding page in the ViewPager.
-        mViewPager.setCurrentItem(tab.getPosition());
+        //if (tab.getPosition() == 3 || tab.getPosition() == 4) {
+            //Fragment fragment = mViewPager.getChildAt(tab.getPosition());
+        //} else {
+            mViewPager.setCurrentItem(tab.getPosition());
+        //}
     }
 
     /**
@@ -104,8 +109,8 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         // pass data to another fragments.
         BandCutSectionFragment bandCutSectionFragment = (BandCutSectionFragment) AppSectionsPagerAdapter.bandCutSectionFragment;
         GainSectionFragment gainSectionFragment = (GainSectionFragment) AppSectionsPagerAdapter.gainSectionFragment;
-        bandCutSectionFragment.updataFlag(data);
-        gainSectionFragment.updataFlag(data);
+        //bandCutSectionFragment.updataFlag(data);
+        //gainSectionFragment.updataFlag(data);
     }
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {

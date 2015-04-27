@@ -2,6 +2,7 @@ package ntou.cs.lab505.oblivion.activitites.sectionfragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.sqlite.FSAdapter;
 
 /**
  * Created by alan on 4/24/15.
@@ -30,15 +32,27 @@ public class FrequencyShiftSectionFragment extends Fragment implements SeekBar.O
         this.seekBarValue = 0;
 
         // add listener.
-        seekbar.setOnSeekBarChangeListener(this);
+        this.seekbar.setOnSeekBarChangeListener(this);
+
+        String data;
+        FSAdapter fsAdapter = new FSAdapter(this.getActivity().getApplicationContext());
+        fsAdapter.open();
+        data = fsAdapter.getData();
+        fsAdapter.close();
+
+        //Log.d("temp", "data: " + data);
+
+        this.seekBarValue = Integer.parseInt(data.split(":")[1]);
+        Log.d("FSF", "data: " + this.seekBarValue);
+        this.seekbar.setProgress(this.seekBarValue + 24);
 
         return rootView;
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        seekBarValue = progress - 24;
-        fsValue.setText(String.valueOf(seekBarValue));
+        this.seekBarValue = progress - 24;
+        fsValue.setText(String.valueOf(this.seekBarValue));
         //Log.d("SettingActivity", "FrequencyShiftSectionFragment, " + "seekbar onProgressChanged:  " + seekValue);
     }
 
@@ -56,6 +70,9 @@ public class FrequencyShiftSectionFragment extends Fragment implements SeekBar.O
     public void onPause() {
         super.onPause();
 
-
+        FSAdapter fsAdapter = new FSAdapter(this.getActivity().getApplicationContext());
+        fsAdapter.open();
+        fsAdapter.saveData(seekBarValue);
+        fsAdapter.close();
     }
 }

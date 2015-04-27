@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.sqlite.MSAdapter;
 
 /**
  * Created by alan on 4/24/15.
@@ -81,6 +82,44 @@ public class DefaultModeSectionFragment extends Fragment {
             }
         });
 
+        // load data.
+        String data;
+        MSAdapter msAdapter = new MSAdapter(this.getActivity().getApplicationContext());
+        msAdapter.open();
+        data = msAdapter.getData();
+        msAdapter.close();
+
+        //Log.d("DefaultMode", "data: " + data);
+        String[] temp = data.split(":");
+        this.selectedValue = Integer.parseInt(temp[1]);
+        switch (this.selectedValue) {
+            case 0:
+                rB1.setChecked(true);
+                rB2.setChecked(false);
+                rB3.setChecked(false);
+                rB4.setChecked(false);
+                break;
+            case 1:
+                rB1.setChecked(false);
+                rB2.setChecked(true);
+                rB3.setChecked(false);
+                rB4.setChecked(false);
+                break;
+            case 2:
+                rB1.setChecked(false);
+                rB2.setChecked(false);
+                rB3.setChecked(true);
+                rB4.setChecked(false);
+                break;
+            case 3:
+                rB1.setChecked(false);
+                rB2.setChecked(false);
+                rB3.setChecked(false);
+                rB4.setChecked(true);
+                break;
+            default:
+        }
+
         return rootView;
     }
 
@@ -107,5 +146,9 @@ public class DefaultModeSectionFragment extends Fragment {
         super.onPause();
 
         // save data.
+        MSAdapter msAdapter = new MSAdapter(this.getActivity().getApplicationContext());
+        msAdapter.open();
+        msAdapter.saveData(this.selectedValue);
+        msAdapter.close();
     }
 }

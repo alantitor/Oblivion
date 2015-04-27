@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.sqlite.IOSAdapter;
 
 /**
  * Created by alan on 4/24/15.
@@ -71,7 +73,19 @@ public class IOSectionFragment extends Fragment {
         });
 
         // load data.
+        String data;
+        IOSAdapter iosAdapter = new IOSAdapter(this.getActivity().getApplicationContext());
+        iosAdapter.open();
+        data = iosAdapter.getData();
+        iosAdapter.close();
 
+        //Log.d("IOSectionFragment", "get db data: " + data);
+        String[] temp = data.split(",");
+        this.rg1Value = Integer.parseInt(temp[0].split(":")[1]);
+        this.rg2Value = Integer.parseInt(temp[1].split(":")[1]);
+        //Log.d("IOSectionFragment", "get db data: " + this.rg1Value + ", " + this.rg2Value);
+        ((RadioButton) rg1.getChildAt(rg1Value)).setChecked(true);
+        ((RadioButton) rg2.getChildAt(rg2Value)).setChecked(true);
 
         return rootView;
     }
@@ -81,6 +95,9 @@ public class IOSectionFragment extends Fragment {
         super.onPause();
 
         // save data.
+        IOSAdapter iosAdapter = new IOSAdapter(this.getActivity().getApplicationContext());
+        iosAdapter.open();
+        iosAdapter.saveData(rg1Value, rg2Value);
+        iosAdapter.close();
     }
-
 }

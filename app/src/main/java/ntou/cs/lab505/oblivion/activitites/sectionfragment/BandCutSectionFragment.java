@@ -36,6 +36,8 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         // Add listener.  This step is very important.
         seekBar.setOnSeekBarChangeListener(this);
 
+
+
         return rootView;
     }
 
