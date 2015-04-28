@@ -47,7 +47,19 @@ public final class TableContract implements BaseColumns{
     public static final String T_FREQSHIFT_SEMITONE = "semitone";
     public static final String T_FREQSHIFT_STATE = "state";
     // band_setting table content
-
+    public static final String T_BAND_USERID = "user_id";
+    public static final String T_BAND_GROUPID = "group_id";
+    public static final String T_BAND_LOWBAND = "lowband";
+    public static final String T_BAND_HIGHBAND = "highband";
+    public static final String T_BAND_STATE = "state";
     // gain_setting table content
-
+    public static final String T_GAIN_USERID = "user_id";
+    public static final String T_GAIN_GROUPID = "group_id";
+    public static final String T_GAIN_L40 = "l40";
+    public static final String T_GAIN_L60 = "l60";
+    public static final String T_GAIN_L80 = "l80";
+    public static final String T_GAIN_r40 = "r40";
+    public static final String T_GAIN_r60 = "r60";
+    public static final String T_GAIN_r80 = "r80";
+    public static final String T_GAIN_STATE = "state";
 }

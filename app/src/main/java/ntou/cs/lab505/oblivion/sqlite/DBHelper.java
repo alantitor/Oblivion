@@ -62,6 +62,28 @@ public class DBHelper extends SQLiteOpenHelper {
                 TableContract.T_FREQSHIFT_SEMITONE + WS + TableContract.TYPE_INTEGER + CS +
                 TableContract.T_FREQSHIFT_STATE + WS + TableContract.TYPE_INTEGER +
                 " )";
+        String SQL_CREATE_TABLE_BAND_SETTING =
+                "CREATE TABLE" + WS + TableContract.TABLE_BAND + " ( " +
+                TableContract._ID + WS + TableContract.TYPE_INTEGER + WS + " PRIMARY KEY " + CS +
+                TableContract.T_BAND_USERID + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_BAND_GROUPID + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_BAND_LOWBAND + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_BAND_HIGHBAND + WS + TableContract.TYPE_INTEGER +
+                TableContract.T_BAND_STATE + WS + TableContract.TYPE_INTEGER +
+                " )";
+        String SQL_CREATE_TABLE_GAIN_SETTING =
+                "CREATE TABLE" + WS + TableContract.TABLE_GAIN + " ( " +
+                TableContract._ID + WS + TableContract.TYPE_INTEGER + WS + " PRIMARY KEY " + CS +
+                TableContract.T_GAIN_USERID + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_GROUPID + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_L40 + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_L60 + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_L80 + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_r40 + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_r60 + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_r80 + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_STATE + WS + TableContract.TYPE_INTEGER +
+                " )";
 
         // exclude sqlite commands
         db.execSQL(SQL_CREATE_TABLE_UA);
@@ -69,6 +91,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_IO_SETTING);
         db.execSQL(SQL_CREATE_TABLE_MODE_SETTING);
         db.execSQL(SQL_CREATE_TABLE_FREQSHIFT_SETTING);
+        db.execSQL(SQL_CREATE_TABLE_BAND_SETTING);
+        db.execSQL(SQL_CREATE_TABLE_GAIN_SETTING);
 
         // initial db table columns
         // initial user_account table columns

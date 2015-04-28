@@ -6,7 +6,8 @@
     android:paddingBottom="10dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/border_fragment_bandcut">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -17,12 +17,14 @@ import ntou.cs.lab505.oblivion.activitites.sectionfragment.DummySectionFragment;
 import ntou.cs.lab505.oblivion.activitites.sectionfragment.FrequencyShiftSectionFragment;
 import ntou.cs.lab505.oblivion.activitites.sectionfragment.GainSectionFragment;
 import ntou.cs.lab505.oblivion.activitites.sectionfragment.IOSectionFragment;
+import ntou.cs.lab505.oblivion.sqlite.MSAdapter;
 
 
 public class SettingActivity extends FragmentActivity implements ActionBar.TabListener, DefaultModeSectionFragment.OnDMDataListener{
 
     AppSectionsPagerAdapter mAppSectionsPagerAdapter;
     ViewPager mViewPager;
+    int fragmentModeState = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,13 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
                              .setText(mAppSectionsPagerAdapter.getPageTitle(i))
                              .setTabListener(this));
         }
+
+        //
+        MSAdapter msAdapter = new MSAdapter(getApplicationContext());
+        msAdapter.open();
+        String data = msAdapter.getData();
+        msAdapter.close();
+        this.fragmentModeState = Integer.parseInt(data.split(":")[1]);
     }
 
     /**
@@ -70,11 +79,11 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // When the given tab is selected, switch to the corresponding page in the ViewPager.
-        //if (tab.getPosition() == 3 || tab.getPosition() == 4) {
-            //Fragment fragment = mViewPager.getChildAt(tab.getPosition());
-        //} else {
+        if (this.fragmentModeState == 0 && (tab.getPosition() == 3 || tab.getPosition() == 4)) {
+            mViewPager.setCurrentItem(2);
+        } else {
             mViewPager.setCurrentItem(tab.getPosition());
-        //}
+        }
     }
 
     /**
@@ -104,13 +113,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     @Override
     public void OnDMDataPass(String data) {
 
-        // receive data from A fragment.
-        //Log.d("OnDMDataPass", data);
-        // pass data to another fragments.
-        BandCutSectionFragment bandCutSectionFragment = (BandCutSectionFragment) AppSectionsPagerAdapter.bandCutSectionFragment;
-        GainSectionFragment gainSectionFragment = (GainSectionFragment) AppSectionsPagerAdapter.gainSectionFragment;
-        //bandCutSectionFragment.updataFlag(data);
-        //gainSectionFragment.updataFlag(data);
+        this.fragmentModeState = Integer.parseInt(data);
     }
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {

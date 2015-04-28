@@ -3,7 +3,6 @@ package ntou.cs.lab505.oblivion.activitites.sectionfragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import ntou.cs.lab505.oblivion.R;
  * Created by alan on 4/24/15.
  */
 
-public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBarChangeListener, DefaultModeSectionFragment.OnDMDataListener {
+public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
 
     private int stateFlag = 0;
 
@@ -36,9 +35,7 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         // Add listener.  This step is very important.
         seekBar.setOnSeekBarChangeListener(this);
 
-
-
-        return rootView;
+        return this.rootView;
     }
 
     @Override
@@ -76,16 +73,12 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         //
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // load data.
-    }
-
     public void updataFlag(String data) {
         stateFlag = Integer.valueOf(data);
-        Log.d("BC", "data update: " + stateFlag);
+    }
+
+    public void refreshView() {
+        this.rootView = null;
     }
 
     @Override
@@ -93,10 +86,5 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         super.onPause();
 
         // save data.
-    }
-
-    @Override
-    public void OnDMDataPass(String data) {
-
     }
 }

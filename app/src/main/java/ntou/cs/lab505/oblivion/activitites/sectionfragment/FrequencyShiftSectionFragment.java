@@ -2,7 +2,6 @@ package ntou.cs.lab505.oblivion.activitites.sectionfragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,7 @@ public class FrequencyShiftSectionFragment extends Fragment implements SeekBar.O
         //Log.d("temp", "data: " + data);
 
         this.seekBarValue = Integer.parseInt(data.split(":")[1]);
-        Log.d("FSF", "data: " + this.seekBarValue);
+        //Log.d("FSF", "data: " + this.seekBarValue);
         this.seekbar.setProgress(this.seekBarValue + 24);
 
         return rootView;
