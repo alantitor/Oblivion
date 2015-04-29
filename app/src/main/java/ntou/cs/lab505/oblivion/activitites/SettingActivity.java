@@ -68,7 +68,9 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         msAdapter.open();
         String data = msAdapter.getData();
         msAdapter.close();
-        this.fragmentModeState = Integer.parseInt(data.split(":")[1]);
+        if (data.length() != 0) {
+            this.fragmentModeState = Integer.parseInt(data.split(":")[1]);
+        }
     }
 
     /**
@@ -79,7 +81,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // When the given tab is selected, switch to the corresponding page in the ViewPager.
-        if (this.fragmentModeState == 0 && (tab.getPosition() == 3 || tab.getPosition() == 4)) {
+        if (this.fragmentModeState != 3 && (tab.getPosition() == 3 || tab.getPosition() == 4)) {
             mViewPager.setCurrentItem(2);
         } else {
             mViewPager.setCurrentItem(tab.getPosition());

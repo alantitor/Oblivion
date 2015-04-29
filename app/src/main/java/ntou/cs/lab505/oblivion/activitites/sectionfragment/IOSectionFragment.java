@@ -79,14 +79,14 @@ public class IOSectionFragment extends Fragment {
         data = iosAdapter.getData();
         iosAdapter.close();
 
-        //Log.d("IOSectionFragment", "get db data: " + data);
-        String[] temp = data.split(",");
-        this.rg1Value = Integer.parseInt(temp[0].split(":")[1]);
-        this.rg2Value = Integer.parseInt(temp[1].split(":")[1]);
-        //Log.d("IOSectionFragment", "get db data: " + this.rg1Value + ", " + this.rg2Value);
-        ((RadioButton) rg1.getChildAt(rg1Value)).setChecked(true);
-        ((RadioButton) rg2.getChildAt(rg2Value)).setChecked(true);
-
+        if (data.length() != 0) {
+            String[] temp = data.split(",");
+            this.rg1Value = Integer.parseInt(temp[0].split(":")[1]);
+            this.rg2Value = Integer.parseInt(temp[1].split(":")[1]);
+            ((RadioButton) rg1.getChildAt(rg1Value)).setChecked(true);
+            ((RadioButton) rg2.getChildAt(rg2Value)).setChecked(true);
+        }
+        
         return rootView;
     }
 

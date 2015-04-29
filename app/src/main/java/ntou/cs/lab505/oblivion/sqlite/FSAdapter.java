@@ -64,12 +64,14 @@ public class FSAdapter {
         c.moveToFirst();
 
         int value = 0;
+        String data;
 
         if (c.getCount() == 1) {
             value = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_FREQSHIFT_SEMITONE)));
+            data = "p1:" + value;
+        } else {
+            data = "";
         }
-
-        String data = "p1:" + value;
 
         return data;
     }

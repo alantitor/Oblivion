@@ -68,7 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 TableContract.T_BAND_USERID + WS + TableContract.TYPE_INTEGER + CS +
                 TableContract.T_BAND_GROUPID + WS + TableContract.TYPE_INTEGER + CS +
                 TableContract.T_BAND_LOWBAND + WS + TableContract.TYPE_INTEGER + CS +
-                TableContract.T_BAND_HIGHBAND + WS + TableContract.TYPE_INTEGER +
+                TableContract.T_BAND_HIGHBAND + WS + TableContract.TYPE_INTEGER + CS +
                 TableContract.T_BAND_STATE + WS + TableContract.TYPE_INTEGER +
                 " )";
         String SQL_CREATE_TABLE_GAIN_SETTING =

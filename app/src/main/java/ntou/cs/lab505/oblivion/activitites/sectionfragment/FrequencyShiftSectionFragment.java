@@ -39,11 +39,11 @@ public class FrequencyShiftSectionFragment extends Fragment implements SeekBar.O
         data = fsAdapter.getData();
         fsAdapter.close();
 
-        //Log.d("temp", "data: " + data);
-
-        this.seekBarValue = Integer.parseInt(data.split(":")[1]);
-        //Log.d("FSF", "data: " + this.seekBarValue);
-        this.seekbar.setProgress(this.seekBarValue + 24);
+        // load data.
+        if (data.length() != 0) {
+            this.seekBarValue = Integer.parseInt(data.split(":")[1]);
+            this.seekbar.setProgress(this.seekBarValue + 24);
+        }
 
         return rootView;
     }

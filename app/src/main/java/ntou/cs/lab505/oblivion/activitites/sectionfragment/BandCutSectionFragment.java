@@ -6,13 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ntou.cs.lab505.oblivion.Parameters.type.BandCut;
 import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.sqlite.BSAdapter;
 
 /**
  * Created by alan on 4/24/15.
@@ -34,6 +37,20 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         this.seekBar = (SeekBar) rootView.findViewById(R.id.seekBar_fragment_bankcut);
         // Add listener.  This step is very important.
         seekBar.setOnSeekBarChangeListener(this);
+
+        // load data.
+        BSAdapter bsAdapter = new BSAdapter(this.getActivity().getApplicationContext());
+        bsAdapter.open();
+        ArrayList<BandCut> list = bsAdapter.getData();
+        bsAdapter.close();
+
+        // set seekbar progress.
+        seekBar.setProgress(list.size());
+
+        // add view.
+
+        // coding here!!!!!!!!!!!!!!!
+        
 
         return this.rootView;
     }
@@ -86,5 +103,28 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         super.onPause();
 
         // save data.
+        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout border = (LinearLayout) rootView.findViewById(R.id.draw_fragment_bankcut);
+        ArrayList<BandCut> list = new ArrayList<BandCut>();
+
+        for (int i = 0; i < border.getChildCount(); i++) {
+            View view = border.getChildAt(i);
+            EditText lowBand = (EditText) view.findViewById(R.id.lowBand_view_bandcut);
+            EditText highBand = (EditText) view.findViewById(R.id.highBand_view_bandcut);
+
+            if (lowBand.getText().toString().length() == 0 && highBand.getText().toString().length() == 0) {
+                continue;
+            }
+
+            int low = Integer.parseInt(lowBand.getText().toString());
+            int hight = Integer.parseInt(highBand.getText().toString());
+            BandCut bc = new BandCut(low, hight);
+            list.add(bc);
+        }
+
+        BSAdapter bsAdapter = new BSAdapter(this.getActivity().getApplicationContext());
+        bsAdapter.open();
+        bsAdapter.saveData(list);
+        bsAdapter.close();
     }
 }

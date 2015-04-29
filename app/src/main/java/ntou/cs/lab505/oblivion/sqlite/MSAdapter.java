@@ -62,7 +62,15 @@ public class MSAdapter {
         Cursor c = mDb.query(TableContract.TABLE_MODE, projection, selection, selectionArgs, null, null, sortOrder);
         c.moveToFirst();
 
-        String data = "p1:" + c.getString(c.getColumnIndex(TableContract.T_MODE_MODE));
+        int value = 0;
+        String data;
+
+        if (c.getCount() == 1) {
+            value = Integer.parseInt((c.getString(c.getColumnIndex(TableContract.T_MODE_MODE))));
+            data = "p1:" + value;
+        } else {
+            data = "";
+        }
 
         return data;
     }

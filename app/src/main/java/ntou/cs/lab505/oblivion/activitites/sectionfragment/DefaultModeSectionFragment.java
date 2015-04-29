@@ -31,7 +31,7 @@ public class DefaultModeSectionFragment extends Fragment {
         this.rB2 = (RadioButton) rootView.findViewById(R.id.radioButton2_fragment_defaultmode);
         this.rB3 = (RadioButton) rootView.findViewById(R.id.radioButton3_fragment_defaultmode);
         this.rB4 = (RadioButton) rootView.findViewById(R.id.radioButton4_fragment_defaultmode);
-        this.selectedValue = -1;
+        this.selectedValue = 0;
 
         // add listener
         rB1.setOnClickListener(new View.OnClickListener() {
@@ -90,34 +90,36 @@ public class DefaultModeSectionFragment extends Fragment {
         msAdapter.close();
 
         //Log.d("DefaultMode", "data: " + data);
-        String[] temp = data.split(":");
-        this.selectedValue = Integer.parseInt(temp[1]);
-        switch (this.selectedValue) {
-            case 0:
-                rB1.setChecked(true);
-                rB2.setChecked(false);
-                rB3.setChecked(false);
-                rB4.setChecked(false);
-                break;
-            case 1:
-                rB1.setChecked(false);
-                rB2.setChecked(true);
-                rB3.setChecked(false);
-                rB4.setChecked(false);
-                break;
-            case 2:
-                rB1.setChecked(false);
-                rB2.setChecked(false);
-                rB3.setChecked(true);
-                rB4.setChecked(false);
-                break;
-            case 3:
-                rB1.setChecked(false);
-                rB2.setChecked(false);
-                rB3.setChecked(false);
-                rB4.setChecked(true);
-                break;
-            default:
+        if (data.length() != 0) {
+            String[] temp = data.split(":");
+            this.selectedValue = Integer.parseInt(temp[1]);
+            switch (this.selectedValue) {
+                case 0:
+                    rB1.setChecked(true);
+                    rB2.setChecked(false);
+                    rB3.setChecked(false);
+                    rB4.setChecked(false);
+                    break;
+                case 1:
+                    rB1.setChecked(false);
+                    rB2.setChecked(true);
+                    rB3.setChecked(false);
+                    rB4.setChecked(false);
+                    break;
+                case 2:
+                    rB1.setChecked(false);
+                    rB2.setChecked(false);
+                    rB3.setChecked(true);
+                    rB4.setChecked(false);
+                    break;
+                case 3:
+                    rB1.setChecked(false);
+                    rB2.setChecked(false);
+                    rB3.setChecked(false);
+                    rB4.setChecked(true);
+                    break;
+                default:
+            }
         }
 
         return rootView;

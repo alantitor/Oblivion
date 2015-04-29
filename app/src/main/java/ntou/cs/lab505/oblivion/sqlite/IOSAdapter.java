@@ -52,7 +52,7 @@ public class IOSAdapter {
             insertValues.put(TableContract.T_IO_STATE, 1);
             mDb.insert(TableContract.TABLE_IO, null, insertValues);
         } else {  // update.
-            //Log.d("IOSAdapter", "update data in db.");
+            //CLog.d("IOSAdapter", "update data in db.");
             long db_id = Long.parseLong(c.getString(c.getColumnIndex(TableContract._ID)));
             mDb.execSQL("UPDATE " + TableContract.TABLE_IO
                         + " SET " + TableContract.T_IO_INPUT + " = " + value1
@@ -84,13 +84,15 @@ public class IOSAdapter {
 
         int value1 = 0;
         int value2 = 0;
+        String data;
 
         if (c.getCount() == 1) {
             value1 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_IO_INPUT)));
             value2 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_IO_OUTPUT)));
+            data = "p1:" + value1 + ",p2:" + value2;
+        } else {
+            data = "";
         }
-
-        String data = "p1:" + value1 + ",p2:" + value2;
 
         return data;
     }
