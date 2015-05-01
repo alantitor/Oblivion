@@ -23,8 +23,6 @@ import ntou.cs.lab505.oblivion.sqlite.BSAdapter;
 
 public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
 
-    private int stateFlag = 0;
-
     private View rootView;
     private SeekBar seekBar;
     private TextView bankcutNumber;
@@ -42,27 +40,41 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         BSAdapter bsAdapter = new BSAdapter(this.getActivity().getApplicationContext());
         bsAdapter.open();
         ArrayList<BandCut> list = bsAdapter.getData();
+        this.seekBarValue = list.size();
         bsAdapter.close();
 
         // set seekbar progress.
         seekBar.setProgress(list.size());
 
         // add view.
+        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout border = (LinearLayout) rootView.findViewById(R.id.draw_fragment_bankcut);
+        //ArrayList<View> views = new ArrayList<View>(this.seekBarValue);
+        border.removeAllViews();
 
-        // coding here!!!!!!!!!!!!!!!
-        
+        for (int count = 0; count < this.seekBarValue; count++) {
+            View view = layoutInflater.inflate(R.layout.view_bandcut, null);
+            TextView viewLabel = (TextView) view.findViewById(R.id.label_view_bandcut);
+            viewLabel.append(String.valueOf(count + 1));
+            EditText lowBand = (EditText) view.findViewById(R.id.lowBand_view_bandcut);
+            lowBand.setText(String.valueOf(list.get(count).getLowBand()));
+            EditText highBand = (EditText) view.findViewById(R.id.highBand_view_bandcut);
+            highBand.setText(String.valueOf(list.get(count).getHighBand()));
+            //views.add(view);
+            border.addView(view);
+        }
 
         return this.rootView;
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        seekBarValue = progress;
-        bankcutNumber.setText(String.valueOf(seekBarValue));
+        this.seekBarValue = progress;
+        this.bankcutNumber.setText(String.valueOf(this.seekBarValue));
 
         // draw view
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout border = (LinearLayout) rootView.findViewById(R.id.draw_fragment_bankcut);
+        LinearLayout border = (LinearLayout) this.rootView.findViewById(R.id.draw_fragment_bankcut);
         ArrayList<View> views = new ArrayList<View>(progress);
         // clear views
         border.removeAllViews();
@@ -88,14 +100,6 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         //
-    }
-
-    public void updataFlag(String data) {
-        stateFlag = Integer.valueOf(data);
-    }
-
-    public void refreshView() {
-        this.rootView = null;
     }
 
     @Override

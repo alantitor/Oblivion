@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import ntou.cs.lab505.oblivion.R;
@@ -63,7 +64,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
                              .setTabListener(this));
         }
 
-        //
+        // get mode type value from db.
         MSAdapter msAdapter = new MSAdapter(getApplicationContext());
         msAdapter.open();
         String data = msAdapter.getData();
@@ -81,10 +82,14 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // When the given tab is selected, switch to the corresponding page in the ViewPager.
-        if (this.fragmentModeState != 3 && (tab.getPosition() == 3 || tab.getPosition() == 4)) {
-            mViewPager.setCurrentItem(2);
-        } else {
+        if (this.fragmentModeState == 3) {
             mViewPager.setCurrentItem(tab.getPosition());
+        } else {
+            if (tab.getPosition() == 3 || tab.getPosition() == 4) {
+                mViewPager.setCurrentItem(-1);
+            } else {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
         }
     }
 
@@ -118,15 +123,15 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         this.fragmentModeState = Integer.parseInt(data);
     }
 
-    public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
+    public class AppSectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         // fragment objects
-        public static IOSectionFragment ioSectionFragment;
-        public static DefaultModeSectionFragment defaultModeSectionFragment;
-        public static FrequencyShiftSectionFragment frequencyShiftSectionFragment;
-        public static BandCutSectionFragment bandCutSectionFragment;
-        public static GainSectionFragment gainSectionFragment;
-        public static DummySectionFragment dummySectionFragment;
+        public IOSectionFragment ioSectionFragment;
+        public DefaultModeSectionFragment defaultModeSectionFragment;
+        public FrequencyShiftSectionFragment frequencyShiftSectionFragment;
+        public BandCutSectionFragment bandCutSectionFragment;
+        public GainSectionFragment gainSectionFragment;
+        public DummySectionFragment dummySectionFragment;
         // tabs name string.
         private String[] SECTIONTABS = {"I/O", "Mode","Frequency Shift", "Band", "Gain"};
 
@@ -161,6 +166,9 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
                     // gain setting fragment
                     gainSectionFragment = new GainSectionFragment();
                     return gainSectionFragment;
+                case 5:
+                    dummySectionFragment = new DummySectionFragment();
+                    return dummySectionFragment;
                 default:
                     // dummy fragment
                     dummySectionFragment = new DummySectionFragment();
@@ -177,16 +185,10 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         public CharSequence getPageTitle(int position) {
             return SECTIONTABS[position];
         }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
     }
 }
-
-
-/**
- * Reference:
- *
- * Passing data between a fragment and its container activity:
- *      http://stackoverflow.com/questions/9343241/passing-data-between-a-fragment-and-its-container-activity
- *
- * http://developer.android.com/training/basics/fragments/communicating.html
- * http://developer.android.com/guide/components/fragments.html#CommunicatingWithActivity
- */

@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -54,7 +53,6 @@ public class BSAdapter {
         // insert data to db.
         for (int i = 0; i < list.size(); i++) {
             BandCut bc = list.get(i);
-            Log.d("bsa", "save data" + bc.getData());
             ContentValues insertValues = new ContentValues();
             insertValues.put(TableContract.T_BAND_USERID, Record.USERID);
             insertValues.put(TableContract.T_BAND_GROUPID, i);
@@ -90,5 +88,16 @@ public class BSAdapter {
         }
 
         return list;
+    }
+
+    public int getDataCount() {
+        String[] projectio = {TableContract.T_BAND_USERID};
+        String selection = TableContract.T_BAND_USERID + " = ? ";
+        String[] selectionArgs = {String.valueOf(Record.USERID)};
+        String sortOrder = "";
+        Cursor c = mDb.query(TableContract.TABLE_BAND, projectio, selection, selectionArgs, null, null, sortOrder);
+        c.moveToFirst();
+
+        return c.getCount();
     }
 }
