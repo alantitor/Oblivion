@@ -36,15 +36,6 @@ public class GainSectionFragment extends Fragment {
         // get rootview.
         this.rootView = inflater.inflate(R.layout.fragment_gain, container, false);
 
-        // refresh screen.  // not work.
-        LinearLayout llScreen = (LinearLayout) this.rootView.findViewById(R.id.border_fragment_gain);
-        llScreen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         // get item number.
         GSAdapter gsAdapter = new GSAdapter(this.getActivity().getApplicationContext());
         gsAdapter.open();
