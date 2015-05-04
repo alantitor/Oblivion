@@ -49,7 +49,6 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         // add view.
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout border = (LinearLayout) rootView.findViewById(R.id.draw_fragment_bankcut);
-        //ArrayList<View> views = new ArrayList<View>(this.seekBarValue);
         border.removeAllViews();
 
         for (int count = 0; count < this.seekBarValue; count++) {
@@ -60,7 +59,6 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
             lowBand.setText(String.valueOf(list.get(count).getLowBand()));
             EditText highBand = (EditText) view.findViewById(R.id.highBand_view_bandcut);
             highBand.setText(String.valueOf(list.get(count).getHighBand()));
-            //views.add(view);
             border.addView(view);
         }
 
@@ -107,22 +105,22 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         super.onPause();
 
         // save data.
-        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout border = (LinearLayout) rootView.findViewById(R.id.draw_fragment_bankcut);
-        ArrayList<BandCut> list = new ArrayList<BandCut>();
+        ArrayList<BandCut> list = new ArrayList<>();
 
         for (int i = 0; i < border.getChildCount(); i++) {
             View view = border.getChildAt(i);
             EditText lowBand = (EditText) view.findViewById(R.id.lowBand_view_bandcut);
             EditText highBand = (EditText) view.findViewById(R.id.highBand_view_bandcut);
 
-            if (lowBand.getText().toString().length() == 0 && highBand.getText().toString().length() == 0) {
+            if (lowBand.getText().toString().length() == 0 || highBand.getText().toString().length() == 0) {
                 continue;
             }
 
             int low = Integer.parseInt(lowBand.getText().toString());
-            int hight = Integer.parseInt(highBand.getText().toString());
-            BandCut bc = new BandCut(low, hight);
+            int high = Integer.parseInt(highBand.getText().toString());
+            BandCut bc = new BandCut(low, high);
             list.add(bc);
         }
 

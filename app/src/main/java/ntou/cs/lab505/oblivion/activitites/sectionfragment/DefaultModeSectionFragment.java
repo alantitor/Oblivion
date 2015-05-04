@@ -147,6 +147,7 @@ public class DefaultModeSectionFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
+        //Log.d("DM", "onPause");
         // save data.
         MSAdapter msAdapter = new MSAdapter(this.getActivity().getApplicationContext());
         msAdapter.open();

@@ -91,11 +91,11 @@ public class BSAdapter {
     }
 
     public int getDataCount() {
-        String[] projectio = {TableContract.T_BAND_USERID};
+        String[] projection = {TableContract.T_BAND_USERID};
         String selection = TableContract.T_BAND_USERID + " = ? ";
         String[] selectionArgs = {String.valueOf(Record.USERID)};
         String sortOrder = "";
-        Cursor c = mDb.query(TableContract.TABLE_BAND, projectio, selection, selectionArgs, null, null, sortOrder);
+        Cursor c = mDb.query(TableContract.TABLE_BAND, projection, selection, selectionArgs, null, null, sortOrder);
         c.moveToFirst();
 
         return c.getCount();

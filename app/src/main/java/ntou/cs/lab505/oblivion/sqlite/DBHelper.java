@@ -79,9 +79,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 TableContract.T_GAIN_L40 + WS + TableContract.TYPE_INTEGER + CS +
                 TableContract.T_GAIN_L60 + WS + TableContract.TYPE_INTEGER + CS +
                 TableContract.T_GAIN_L80 + WS + TableContract.TYPE_INTEGER + CS +
-                TableContract.T_GAIN_r40 + WS + TableContract.TYPE_INTEGER + CS +
-                TableContract.T_GAIN_r60 + WS + TableContract.TYPE_INTEGER + CS +
-                TableContract.T_GAIN_r80 + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_R40 + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_R60 + WS + TableContract.TYPE_INTEGER + CS +
+                TableContract.T_GAIN_R80 + WS + TableContract.TYPE_INTEGER + CS +
                 TableContract.T_GAIN_STATE + WS + TableContract.TYPE_INTEGER +
                 " )";
 

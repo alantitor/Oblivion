@@ -4,6 +4,7 @@ package ntou.cs.lab505.oblivion.Parameters.type;
  * Created by alan on 4/29/15.
  */
 public class BandCut {
+
     private int lowBand;
     private int highBand;
 

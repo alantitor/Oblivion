@@ -34,20 +34,19 @@ public class GSAdapter {
     }
 
     public void saveData(ArrayList<GainAdd> list) {
-        String[] projectin = {TableContract.T_GAIN_USERID,
+        String[] projection = {TableContract.T_GAIN_USERID,
                                 TableContract.T_GAIN_GROUPID,
                                 TableContract.T_GAIN_L40,
                                 TableContract.T_GAIN_L60,
                                 TableContract.T_GAIN_L80,
-                                TableContract.T_GAIN_r40,
-                                TableContract.T_GAIN_r40,
-                                TableContract.T_GAIN_r60,
-                                TableContract.T_GAIN_r80,
+                                TableContract.T_GAIN_R40,
+                                TableContract.T_GAIN_R60,
+                                TableContract.T_GAIN_R80,
                                 TableContract.T_GAIN_STATE};
         String selection = TableContract.T_BAND_USERID + " = ? ";
         String[] selectionArgs = {String.valueOf(Record.USERID)};
-        String soetOrder = "";
-        Cursor c = mDb.query(TableContract.TABLE_GAIN, projectin, selection, selectionArgs, null, null,soetOrder);
+        String sortOrder = "";
+        Cursor c = mDb.query(TableContract.TABLE_GAIN, projection, selection, selectionArgs, null, null,sortOrder);
         c.moveToFirst();
 
         // delete old data in db.
@@ -63,15 +62,53 @@ public class GSAdapter {
             insertValues.put(TableContract.T_GAIN_L40, ga.getL40());
             insertValues.put(TableContract.T_GAIN_L60, ga.getL60());
             insertValues.put(TableContract.T_GAIN_L80, ga.getL80());
-            insertValues.put(TableContract.T_GAIN_r40, ga.getR40());
-            insertValues.put(TableContract.T_GAIN_r60, ga.getR60());
-            insertValues.put(TableContract.T_GAIN_r80, ga.getR80());
+            insertValues.put(TableContract.T_GAIN_R40, ga.getR40());
+            insertValues.put(TableContract.T_GAIN_R60, ga.getR60());
+            insertValues.put(TableContract.T_GAIN_R80, ga.getR80());
             insertValues.put(TableContract.T_GAIN_STATE, 1);
             mDb.insert(TableContract.TABLE_GAIN, null, insertValues);
         }
     }
 
-    //public ArrayList<GainAdd> getData() {
+    public ArrayList getData() {
+        String[] projection = {TableContract.T_GAIN_USERID,
+                                TableContract.T_GAIN_GROUPID,
+                                TableContract.T_GAIN_L40,
+                                TableContract.T_GAIN_L60,
+                                TableContract.T_GAIN_L80,
+                                TableContract.T_GAIN_R40,
+                                TableContract.T_GAIN_R60,
+                                TableContract.T_GAIN_R80,
+                                TableContract.T_GAIN_STATE};
+        String selection = TableContract.T_GAIN_USERID + " = ? ";
+        String[] selectionArgs = {String.valueOf(Record.USERID)};
+        String sortOrder = "";
+        Cursor c = mDb.query(TableContract.TABLE_GAIN, projection, selection, selectionArgs, null,  null, sortOrder);
+        c.moveToFirst();
 
-    //}
+        int l40;
+        int l60;
+        int l80;
+        int r40;
+        int r60;
+        int r80;
+        ArrayList<GainAdd> list = new ArrayList<>();
+
+        while (c.isAfterLast() == false) {
+            l40 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_L40)));
+            l60 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_L60)));
+            l80 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_L80)));
+            r40 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_R40)));
+            r60 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_R60)));
+            r80 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_R80)));
+
+            //Log.d("GsAdapter", l40 + "," + l60 + "," + l80 + "," + r40 + "," + r60 + "," + r80 + ",");
+            GainAdd ga = new GainAdd(l40, l60, l80, r40, r60, r80);
+            list.add(ga);
+
+            c.moveToNext();
+        }
+
+        return list;
+    }
 }

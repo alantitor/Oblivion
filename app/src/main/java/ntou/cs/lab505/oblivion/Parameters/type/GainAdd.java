@@ -4,6 +4,8 @@ package ntou.cs.lab505.oblivion.Parameters.type;
  * Created by alan on 4/30/15.
  */
 public class GainAdd {
+
+    private int groupId;
     private int l40;
     private int l60;
     private int l80;

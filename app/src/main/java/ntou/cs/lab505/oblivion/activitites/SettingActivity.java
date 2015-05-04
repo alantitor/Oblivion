@@ -4,20 +4,12 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import ntou.cs.lab505.oblivion.R;
-import ntou.cs.lab505.oblivion.activitites.sectionfragment.BandCutSectionFragment;
+import ntou.cs.lab505.oblivion.activitites.sectionfragment.AppSectionsPagerAdapter;
 import ntou.cs.lab505.oblivion.activitites.sectionfragment.DefaultModeSectionFragment;
-import ntou.cs.lab505.oblivion.activitites.sectionfragment.DummySectionFragment;
-import ntou.cs.lab505.oblivion.activitites.sectionfragment.FrequencyShiftSectionFragment;
-import ntou.cs.lab505.oblivion.activitites.sectionfragment.GainSectionFragment;
-import ntou.cs.lab505.oblivion.activitites.sectionfragment.IOSectionFragment;
 import ntou.cs.lab505.oblivion.sqlite.MSAdapter;
 
 
@@ -42,7 +34,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
 
         mViewPager = (ViewPager) findViewById(R.id.pager_activity_setting);
         mViewPager.setOffscreenPageLimit(1);
-        mViewPager.setAdapter(mAppSectionsPagerAdapter);
+        mViewPager.setAdapter(mAppSectionsPagerAdapter);  // set adapter.
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -82,14 +74,10 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // When the given tab is selected, switch to the corresponding page in the ViewPager.
-        if (this.fragmentModeState == 3) {
-            mViewPager.setCurrentItem(tab.getPosition());
+        if (this.fragmentModeState != 3 && (tab.getPosition() == 3 || tab.getPosition() == 4)) {
+            mViewPager.setCurrentItem(-1);
         } else {
-            if (tab.getPosition() == 3 || tab.getPosition() == 4) {
-                mViewPager.setCurrentItem(-1);
-            } else {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
+            mViewPager.setCurrentItem(tab.getPosition());
         }
     }
 
@@ -119,76 +107,6 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
      */
     @Override
     public void OnDMDataPass(String data) {
-
         this.fragmentModeState = Integer.parseInt(data);
-    }
-
-    public class AppSectionsPagerAdapter extends FragmentStatePagerAdapter {
-
-        // fragment objects
-        public IOSectionFragment ioSectionFragment;
-        public DefaultModeSectionFragment defaultModeSectionFragment;
-        public FrequencyShiftSectionFragment frequencyShiftSectionFragment;
-        public BandCutSectionFragment bandCutSectionFragment;
-        public GainSectionFragment gainSectionFragment;
-        public DummySectionFragment dummySectionFragment;
-        // tabs name string.
-        private String[] SECTIONTABS = {"I/O", "Mode","Frequency Shift", "Band", "Gain"};
-
-        public AppSectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        /**
-         * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
-         * sections of the app.
-         */
-        @Override
-        public Fragment getItem(int i) {
-            switch (i) {
-                case 0:
-                    // I/O setting fragment
-                    ioSectionFragment = new IOSectionFragment();
-                    return ioSectionFragment;
-                case 1:
-                    // model setting fragment
-                    defaultModeSectionFragment = new DefaultModeSectionFragment();
-                    return defaultModeSectionFragment;
-                case 2:
-                    // frequency shift setting fragment
-                    frequencyShiftSectionFragment = new FrequencyShiftSectionFragment();
-                    return frequencyShiftSectionFragment;
-                case 3:
-                    // bank cut setting fragment
-                    bandCutSectionFragment = new BandCutSectionFragment();
-                    return bandCutSectionFragment;
-                case 4:
-                    // gain setting fragment
-                    gainSectionFragment = new GainSectionFragment();
-                    return gainSectionFragment;
-                case 5:
-                    dummySectionFragment = new DummySectionFragment();
-                    return dummySectionFragment;
-                default:
-                    // dummy fragment
-                    dummySectionFragment = new DummySectionFragment();
-                    return dummySectionFragment;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return SECTIONTABS.length;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return SECTIONTABS[position];
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
     }
 }
