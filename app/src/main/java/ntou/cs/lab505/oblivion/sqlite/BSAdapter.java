@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import ntou.cs.lab505.oblivion.Parameters.Record;
-import ntou.cs.lab505.oblivion.Parameters.type.BandCut;
+import ntou.cs.lab505.oblivion.parameters.Record;
+import ntou.cs.lab505.oblivion.parameters.type.BandCut;
 
 /**
  * Created by alan on 4/29/15.

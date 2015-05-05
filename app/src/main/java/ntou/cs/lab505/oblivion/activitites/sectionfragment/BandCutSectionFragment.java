@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ntou.cs.lab505.oblivion.Parameters.type.BandCut;
+import ntou.cs.lab505.oblivion.parameters.type.BandCut;
 import ntou.cs.lab505.oblivion.R;
 import ntou.cs.lab505.oblivion.sqlite.BSAdapter;
 

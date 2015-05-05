@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import ntou.cs.lab505.oblivion.Parameters.Record;
+import ntou.cs.lab505.oblivion.parameters.Record;
 
 /**
  * Created by alan on 4/27/15.

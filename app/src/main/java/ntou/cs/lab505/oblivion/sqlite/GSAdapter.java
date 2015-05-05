@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import ntou.cs.lab505.oblivion.Parameters.Record;
-import ntou.cs.lab505.oblivion.Parameters.type.GainAdd;
+import ntou.cs.lab505.oblivion.parameters.Record;
+import ntou.cs.lab505.oblivion.parameters.type.GainAdd;
 
 /**
  * Created by alan on 4/30/15.

@@ -5,15 +5,13 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ntou.cs.lab505.oblivion.Parameters.Record;
 import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.parameters.Record;
 import ntou.cs.lab505.oblivion.sqlite.DBHelper;
 
 public class DatabaseActivity extends Activity {

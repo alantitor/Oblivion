@@ -1,9 +1,6 @@
-package ntou.cs.lab505.hearingaid.sound.frequenceshift;
+package ntou.cs.lab505.oblivion.sound.frequenceshift;
 
-import android.provider.Telephony;
 import android.util.Log;
-
-import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -27,12 +24,11 @@ public class FrequencyShift extends Thread {
      * constructor
      */
     public FrequencyShift() {
-        sampleRate = 16000;
-        channels = 1;
-        pitchSemiTones = 0
-        ;
-        rateChange = 0.0f;
-        tempoChange = 0.0f;
+        this.sampleRate = 16000;
+        this.channels = 1;
+        this.pitchSemiTones = 0;
+        this.rateChange = 0.0f;
+        this.tempoChange = 0.0f;
     }
 
     /**
@@ -51,6 +47,14 @@ public class FrequencyShift extends Thread {
         this.outputDataQueue = outputDataQueue;
     }
 
+    /**
+     *
+     * @param sampleRate
+     * @param channels
+     * @param pitchSemiTones
+     * @param rateChange
+     * @param tempoChange
+     */
     public void setSoundParameters(int sampleRate, int channels, int pitchSemiTones, float rateChange, float tempoChange) {
         this.sampleRate = sampleRate;
         this.channels = channels;
@@ -96,23 +100,23 @@ public class FrequencyShift extends Thread {
                 tempBuff = inputDataQueue.take();
 
                 if (tempBuff != null) {
-                    Log.d("FrequencyShift", "data 1 length: " + tempBuff.length);
+                    //Log.d("FrequencyShift", "data 1 length: " + tempBuff.length);
 
                     // put data to soundtouch library
                     //long startTime = System.currentTimeMillis();
-                    long startTime = System.nanoTime();
+                    //long startTime = System.nanoTime();
                     soundtouch.putSamples(tempBuff, tempBuff.length);
 
                     // receive data from soundtouch library
                     do {
                         tempBuff2 = soundtouch.receiveSamples();
-                        Log.d("FrequencyShift", "data 2 length: " + tempBuff2.length);
+                        //Log.d("FrequencyShift", "data 2 length: " + tempBuff2.length);
                         outputDataQueue.add(tempBuff2);
                     } while (tempBuff2.length > 0);
 
                     //long stopTime = System.currentTimeMillis();
-                    long stopTime = System.nanoTime();
-                    Log.d("FrequencyShift", "delay: " + (stopTime - startTime));
+                    //long stopTime = System.nanoTime();
+                    //Log.d("FrequencyShift", "delay: " + (stopTime - startTime));
                 }
             }
         } catch (Throwable e) {

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ntou.cs.lab505.oblivion.Parameters.type.GainAdd;
+import ntou.cs.lab505.oblivion.parameters.type.GainAdd;
 import ntou.cs.lab505.oblivion.R;
 import ntou.cs.lab505.oblivion.sqlite.GSAdapter;
 

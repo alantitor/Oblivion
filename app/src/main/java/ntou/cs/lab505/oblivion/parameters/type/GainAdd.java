@@ -1,4 +1,4 @@
-package ntou.cs.lab505.oblivion.Parameters.type;
+package ntou.cs.lab505.oblivion.parameters.type;
 
 /**
  * Created by alan on 4/30/15.

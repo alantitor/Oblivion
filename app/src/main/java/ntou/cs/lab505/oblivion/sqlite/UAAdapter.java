@@ -1,18 +1,12 @@
 package ntou.cs.lab505.oblivion.sqlite;
 
-import android.app.ActionBar;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.sql.SQLException;
-import java.util.InputMismatchException;
-import java.util.ResourceBundle;
-
-import ntou.cs.lab505.oblivion.Parameters.Record;
-import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.parameters.Record;
 
 /**
  * Created by alan on 4/9/15.
