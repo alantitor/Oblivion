@@ -1,4 +1,4 @@
-package ntou.cs.lab505.oblivion.activitites.device;
+package ntou.cs.lab505.oblivion.device;
 
 import android.media.AudioRecord;
 import android.media.MediaRecorder;

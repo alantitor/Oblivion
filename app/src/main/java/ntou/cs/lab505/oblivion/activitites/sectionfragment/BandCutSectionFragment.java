@@ -125,6 +125,8 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
             list.add(bc);
         }
 
+        border.removeAllViews();
+
         BSAdapter bsAdapter = new BSAdapter(this.getActivity().getApplicationContext());
         bsAdapter.open();
         bsAdapter.saveData(list);

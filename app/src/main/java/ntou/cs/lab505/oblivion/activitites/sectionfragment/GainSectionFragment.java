@@ -241,6 +241,8 @@ public class GainSectionFragment extends Fragment {
             list.add(ga);
         }
 
+        border.removeAllViews();
+
         GSAdapter gsAdapter = new GSAdapter(this.getActivity().getApplicationContext());
         gsAdapter.open();
         gsAdapter.saveData(list);

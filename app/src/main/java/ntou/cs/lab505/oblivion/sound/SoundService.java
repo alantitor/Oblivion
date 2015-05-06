@@ -7,8 +7,8 @@ import android.os.IBinder;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-import ntou.cs.lab505.oblivion.activitites.device.Microphone;
-import ntou.cs.lab505.oblivion.activitites.device.Speaker;
+import ntou.cs.lab505.oblivion.device.Microphone;
+import ntou.cs.lab505.oblivion.device.Speaker;
 import ntou.cs.lab505.oblivion.parameters.SoundParameter;
 import ntou.cs.lab505.oblivion.sound.frequenceshift.FrequencyShift;
 import ntou.cs.lab505.oblivion.sqlite.IOSAdapter;
