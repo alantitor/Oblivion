@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.AvoidXfermode;
 
 import ntou.cs.lab505.oblivion.parameters.Record;
+import ntou.cs.lab505.oblivion.parameters.type.ModeType;
 
 /**
  * Created by alan on 4/27/15.
@@ -29,7 +31,7 @@ public class MSAdapter {
         this.mDbHelper.close();
     }
 
-    public void saveData(int value) {
+    public void saveData(ModeType modeType) {
         String[] projection = {TableContract._ID,
                                 TableContract.T_MODE_USERID};
         String selection = TableContract.T_MODE_USERID + " = ?";
@@ -41,18 +43,18 @@ public class MSAdapter {
         if (c.getCount() != 1) {
             ContentValues insertValues = new ContentValues();
             insertValues.put(TableContract.T_MODE_USERID, Record.USERID);
-            insertValues.put(TableContract.T_MODE_MODE, value);
+            insertValues.put(TableContract.T_MODE_MODE, modeType.getModeType());
             insertValues.put(TableContract.T_MODE_STATE, 1);
             mDb.insert(TableContract.TABLE_MODE, null, insertValues);
         } else {
             long db_id = Long.parseLong(c.getString(c.getColumnIndex(TableContract._ID)));
             mDb.execSQL("UPDATE " + TableContract.TABLE_MODE
-                        + " SET " + TableContract.T_MODE_MODE + " = " + value
+                        + " SET " + TableContract.T_MODE_MODE + " = " + modeType.getModeType()
                         + " WHERE " + TableContract._ID + " = " + db_id);
         }
     }
 
-    public String getData() {
+    public ModeType getData() {
 
         String[] projection = {TableContract.T_MODE_USERID,
                                 TableContract.T_MODE_MODE};
@@ -63,15 +65,13 @@ public class MSAdapter {
         c.moveToFirst();
 
         int value = 0;
-        String data;
+        ModeType modeType = new ModeType();
 
         if (c.getCount() == 1) {
             value = Integer.parseInt((c.getString(c.getColumnIndex(TableContract.T_MODE_MODE))));
-            data = "p1:" + value;
-        } else {
-            data = "";
+            modeType.saveData(value);
         }
 
-        return data;
+        return modeType;
     }
 }

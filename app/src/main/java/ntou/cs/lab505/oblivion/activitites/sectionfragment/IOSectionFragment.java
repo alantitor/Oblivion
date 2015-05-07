@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.parameters.type.DeviceIO;
 import ntou.cs.lab505.oblivion.sqlite.IOSAdapter;
 
 /**
@@ -73,19 +74,16 @@ public class IOSectionFragment extends Fragment {
         });
 
         // load data.
-        String data;
+        DeviceIO deviceIO;
         IOSAdapter iosAdapter = new IOSAdapter(this.getActivity().getApplicationContext());
         iosAdapter.open();
-        data = iosAdapter.getData();
+        deviceIO = iosAdapter.getData();
         iosAdapter.close();
 
-        if (data.length() != 0) {
-            String[] temp = data.split(",");
-            this.rg1Value = Integer.parseInt(temp[0].split(":")[1]);
-            this.rg2Value = Integer.parseInt(temp[1].split(":")[1]);
-            ((RadioButton) rg1.getChildAt(rg1Value)).setChecked(true);
-            ((RadioButton) rg2.getChildAt(rg2Value)).setChecked(true);
-        }
+        this.rg1Value = deviceIO.getDeviceIn();
+        this.rg2Value = deviceIO.getDeviceOut();
+        ((RadioButton) rg1.getChildAt(this.rg1Value)).setChecked(true);
+        ((RadioButton) rg2.getChildAt(this.rg2Value)).setChecked(true);
         
         return rootView;
     }
@@ -97,7 +95,8 @@ public class IOSectionFragment extends Fragment {
         // save data.
         IOSAdapter iosAdapter = new IOSAdapter(this.getActivity().getApplicationContext());
         iosAdapter.open();
-        iosAdapter.saveData(rg1Value, rg2Value);
+        DeviceIO deviceIO = new DeviceIO(this.rg1Value, this.rg2Value);
+        iosAdapter.saveData(deviceIO);
         iosAdapter.close();
     }
 }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import ntou.cs.lab505.oblivion.parameters.Record;
+import ntou.cs.lab505.oblivion.parameters.type.FreqST;
 
 /**
  * Created by alan on 4/27/15.
@@ -30,7 +31,7 @@ public class FSAdapter {
         this.mDbHelper.close();
     }
 
-    public void saveData(int value) {
+    public void saveData(FreqST freqST) {
         String[] projection = {TableContract._ID,
                                 TableContract.T_FREQSHIFT_USERID};
         String selection = TableContract.T_FREQSHIFT_USERID + " = ?";
@@ -42,18 +43,18 @@ public class FSAdapter {
         if (c.getCount() != 1) {
             ContentValues insertValues = new ContentValues();
             insertValues.put(TableContract.T_FREQSHIFT_USERID, Record.USERID);
-            insertValues.put(TableContract.T_FREQSHIFT_SEMITONE, value);
+            insertValues.put(TableContract.T_FREQSHIFT_SEMITONE, freqST.getSemiTones());
             insertValues.put(TableContract.T_FREQSHIFT_STATE, 1);
             mDb.insert(TableContract.TABLE_FREQSHIFT, null, insertValues);
         } else {
             long db_id = Long.parseLong(c.getString(c.getColumnIndex(TableContract._ID)));
             mDb.execSQL("UPDATE " + TableContract.TABLE_FREQSHIFT
-                        + " SET " + TableContract.T_FREQSHIFT_SEMITONE + " = " + value
+                        + " SET " + TableContract.T_FREQSHIFT_SEMITONE + " = " + freqST.getSemiTones()
                         + " WHERE " + TableContract._ID + " = " + db_id);
         }
     }
 
-    public String getData() {
+    public FreqST getData() {
 
         String[] projection = {TableContract.T_FREQSHIFT_USERID,
                                 TableContract.T_FREQSHIFT_SEMITONE};
@@ -64,15 +65,13 @@ public class FSAdapter {
         c.moveToFirst();
 
         int value = 0;
-        String data;
+        FreqST freqST = new FreqST();
 
         if (c.getCount() == 1) {
             value = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_FREQSHIFT_SEMITONE)));
-            data = "p1:" + value;
-        } else {
-            data = "";
+            freqST.saveData(value);
         }
 
-        return data;
+        return freqST;
     }
 }

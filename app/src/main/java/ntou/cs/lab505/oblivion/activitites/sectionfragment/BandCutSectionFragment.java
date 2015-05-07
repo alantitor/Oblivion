@@ -28,15 +28,18 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
     private SeekBar seekBar;
     private TextView bandcutNumber;
     private int seekBarValue;
+    private LinearLayout border;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("BC", "onCreateView");
         this.rootView = inflater.inflate(R.layout.fragment_bandcut, container, false);
-        this.bandcutNumber = (TextView) rootView.findViewById(R.id.bcnumber_fragment_bankcut);
-        this.seekBar = (SeekBar) rootView.findViewById(R.id.seekBar_fragment_bankcut);
+        this.bandcutNumber = (TextView) this.rootView.findViewById(R.id.bcnumber_fragment_bankcut);
+        this.seekBar = (SeekBar) this.rootView.findViewById(R.id.seekBar_fragment_bankcut);
         // Add listener.  This step is very important.
         this.seekBar.setOnSeekBarChangeListener(this);
+        this.border = (LinearLayout) this.rootView.findViewById(R.id.draw_fragment_bankcut);
+        this.border.removeAllViews();
 
         // load data.
         BSAdapter bsAdapter = new BSAdapter(this.getActivity().getApplicationContext());
@@ -49,12 +52,8 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         this.seekBar.setProgress(list.size());
 
         // add view.
-        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout border = (LinearLayout) rootView.findViewById(R.id.draw_fragment_bankcut);
-        border.removeAllViews();
-
         for (int count = 0; count < this.seekBarValue; count++) {
-            View view = layoutInflater.inflate(R.layout.view_bandcut, null);
+            View view = inflater.inflate(R.layout.view_bandcut, null);
 
             TextView viewLabel = (TextView) view.findViewById(R.id.label_view_bandcut);
             viewLabel.append(String.valueOf(count + 1));
@@ -72,20 +71,25 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        Log.d("BC", "onProgressChanged");
         this.seekBarValue = progress;
-        this.bandcutNumber.setText(String.valueOf(this.seekBarValue));
+        this.bandcutNumber.setText(String.valueOf(progress));
+
+        // clear views
+        this.border.removeAllViews();
 
         // draw view
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout border = (LinearLayout) this.rootView.findViewById(R.id.draw_fragment_bankcut);
-        // clear views
-        border.removeAllViews();
+
         // create view object
         for (int count = 0; count < progress; count++) {
             View view = layoutInflater.inflate(R.layout.view_bandcut, null);
             TextView viewLabel = (TextView) view.findViewById(R.id.label_view_bandcut);
             viewLabel.append(String.valueOf(count + 1));
-
+            EditText lowBand = (EditText) view.findViewById(R.id.lowBand_view_bandcut);
+            lowBand.setText("0");
+            EditText highBand = (EditText) view.findViewById(R.id.highBand_view_bandcut);
+            highBand.setText("0");
             border.addView(view);
         }
     }
@@ -101,12 +105,25 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
     }
 
     @Override
+    public void onResume() {
+        Log.d("BC", "onResume");
+        super.onResume();
+    }
+
+    @Override
     public void onPause() {
         Log.d("BC", "onPause");
         super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d("BC", "onDestroy");
+        super.onDestroy();
 
         // save data.
         //LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        /*
         LinearLayout border = (LinearLayout) rootView.findViewById(R.id.draw_fragment_bankcut);
         ArrayList<BandCut> list = new ArrayList<>();
 
@@ -131,5 +148,8 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         bsAdapter.open();
         bsAdapter.saveData(list);
         bsAdapter.close();
+        */
+
+        this.border.removeAllViews();
     }
 }

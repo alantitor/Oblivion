@@ -44,7 +44,7 @@ public class SoundService extends Service {
         int deviceIn = 0;
         IOSAdapter iosAdapter = new IOSAdapter(this.getApplicationContext());
         iosAdapter.open();
-        String temp = iosAdapter.getData().split(",")[0];
+        //String temp = iosAdapter.getData().split(",")[0];
         //deviceIn = Integer.parseInt(temp.split(":")[1]);
         //Log.d("SoundService", "deviceIn: " + deviceIn);
         iosAdapter.close();

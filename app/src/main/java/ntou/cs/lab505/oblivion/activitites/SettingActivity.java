@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import ntou.cs.lab505.oblivion.R;
 import ntou.cs.lab505.oblivion.activitites.sectionfragment.AppSectionsPagerAdapter;
 import ntou.cs.lab505.oblivion.activitites.sectionfragment.DefaultModeSectionFragment;
+import ntou.cs.lab505.oblivion.parameters.type.ModeType;
 import ntou.cs.lab505.oblivion.sqlite.MSAdapter;
 
 
@@ -59,11 +60,9 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
         // get mode type value from db.
         MSAdapter msAdapter = new MSAdapter(getApplicationContext());
         msAdapter.open();
-        String data = msAdapter.getData();
+        ModeType modeType = msAdapter.getData();
         msAdapter.close();
-        if (data.length() != 0) {
-            this.fragmentModeState = Integer.parseInt(data.split(":")[1]);
-        }
+        this.fragmentModeState = modeType.getModeType();
     }
 
     /**

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.parameters.type.ModeType;
 import ntou.cs.lab505.oblivion.sqlite.MSAdapter;
 
 /**
@@ -83,43 +84,39 @@ public class DefaultModeSectionFragment extends Fragment {
         });
 
         // load data.
-        String data;
+        ModeType modeType;
         MSAdapter msAdapter = new MSAdapter(this.getActivity().getApplicationContext());
         msAdapter.open();
-        data = msAdapter.getData();
+        modeType = msAdapter.getData();
         msAdapter.close();
 
-        //Log.d("DefaultMode", "data: " + data);
-        if (data.length() != 0) {
-            String[] temp = data.split(":");
-            this.selectedValue = Integer.parseInt(temp[1]);
-            switch (this.selectedValue) {
-                case 0:
-                    rB1.setChecked(true);
-                    rB2.setChecked(false);
-                    rB3.setChecked(false);
-                    rB4.setChecked(false);
-                    break;
-                case 1:
-                    rB1.setChecked(false);
-                    rB2.setChecked(true);
-                    rB3.setChecked(false);
-                    rB4.setChecked(false);
-                    break;
-                case 2:
-                    rB1.setChecked(false);
-                    rB2.setChecked(false);
-                    rB3.setChecked(true);
-                    rB4.setChecked(false);
-                    break;
-                case 3:
-                    rB1.setChecked(false);
-                    rB2.setChecked(false);
-                    rB3.setChecked(false);
-                    rB4.setChecked(true);
-                    break;
-                default:
-            }
+        this.selectedValue = modeType.getModeType();
+        switch (this.selectedValue) {
+            case 0:
+                rB1.setChecked(true);
+                rB2.setChecked(false);
+                rB3.setChecked(false);
+                rB4.setChecked(false);
+                break;
+            case 1:
+                rB1.setChecked(false);
+                rB2.setChecked(true);
+                rB3.setChecked(false);
+                rB4.setChecked(false);
+                break;
+            case 2:
+                rB1.setChecked(false);
+                rB2.setChecked(false);
+                rB3.setChecked(true);
+                rB4.setChecked(false);
+                break;
+            case 3:
+                rB1.setChecked(false);
+                rB2.setChecked(false);
+                rB3.setChecked(false);
+                rB4.setChecked(true);
+                break;
+            default:
         }
 
         return rootView;
@@ -147,11 +144,11 @@ public class DefaultModeSectionFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        //Log.d("DM", "onPause");
         // save data.
         MSAdapter msAdapter = new MSAdapter(this.getActivity().getApplicationContext());
         msAdapter.open();
-        msAdapter.saveData(this.selectedValue);
+        ModeType modeType = new ModeType(this.selectedValue);
+        msAdapter.saveData(modeType);
         msAdapter.close();
     }
 }

@@ -9,6 +9,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.parameters.type.FreqST;
 import ntou.cs.lab505.oblivion.sqlite.FSAdapter;
 
 /**
@@ -33,17 +34,15 @@ public class FrequencyShiftSectionFragment extends Fragment implements SeekBar.O
         // add listener.
         this.seekbar.setOnSeekBarChangeListener(this);
 
-        String data;
+        FreqST freqST;
         FSAdapter fsAdapter = new FSAdapter(this.getActivity().getApplicationContext());
         fsAdapter.open();
-        data = fsAdapter.getData();
+        freqST = fsAdapter.getData();
         fsAdapter.close();
 
         // load data.
-        if (data.length() != 0) {
-            this.seekBarValue = Integer.parseInt(data.split(":")[1]);
-            this.seekbar.setProgress(this.seekBarValue + 24);
-        }
+        this.seekBarValue = freqST.getSemiTones();
+        this.seekbar.setProgress(this.seekBarValue + 24);
 
         return rootView;
     }
@@ -71,7 +70,8 @@ public class FrequencyShiftSectionFragment extends Fragment implements SeekBar.O
 
         FSAdapter fsAdapter = new FSAdapter(this.getActivity().getApplicationContext());
         fsAdapter.open();
-        fsAdapter.saveData(seekBarValue);
+        FreqST freqST = new FreqST(this.seekBarValue);
+        fsAdapter.saveData(freqST);
         fsAdapter.close();
     }
 }
