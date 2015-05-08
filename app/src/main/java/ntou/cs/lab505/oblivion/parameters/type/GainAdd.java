@@ -13,6 +13,15 @@ public class GainAdd {
     private int r60;
     private int r80;
 
+    public GainAdd() {
+        this.l40 = 0;
+        this.l60 = 0;
+        this.l80 = 0;
+        this.r40 = 0;
+        this.r60 = 0;
+        this.r80 = 0;
+    }
+
     public GainAdd(int l40, int l60, int l80, int r40, int r60, int r80) {
         this.l40 = l40;
         this.l60 = l60;

@@ -1,6 +1,5 @@
 package ntou.cs.lab505.oblivion.activitites.sectionfragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,15 +13,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ntou.cs.lab505.oblivion.parameters.type.BandCut;
 import ntou.cs.lab505.oblivion.R;
+import ntou.cs.lab505.oblivion.parameters.type.BandCut;
 import ntou.cs.lab505.oblivion.sqlite.BSAdapter;
 
 /**
  * Created by alan on 4/24/15.
  */
 
-public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
+public class BandCutSectionFragment extends Fragment {
 
     private View rootView;
     private SeekBar seekBar;
@@ -31,13 +30,49 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
     private LinearLayout border;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("BC", "onCreateView");
         this.rootView = inflater.inflate(R.layout.fragment_bandcut, container, false);
+        //this.rootView = new View(getActivity().getApplicationContext());
         this.bandcutNumber = (TextView) this.rootView.findViewById(R.id.bcnumber_fragment_bankcut);
         this.seekBar = (SeekBar) this.rootView.findViewById(R.id.seekBar_fragment_bankcut);
-        // Add listener.  This step is very important.
-        this.seekBar.setOnSeekBarChangeListener(this);
+        //this.seekBar.setOnSeekBarChangeListener(this);  // Add listener.  This step is very important.
+        this.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d("BC", "onProgressChanged");
+                seekBarValue = progress;
+                bandcutNumber.setText(String.valueOf(progress));
+
+                // clear views
+                border.removeAllViews();
+
+                // draw view
+                //LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                // create view object
+                for (int count = 0; count < progress; count++) {
+                    View view = inflater.inflate(R.layout.view_bandcut, null);
+                    TextView viewLabel = (TextView) view.findViewById(R.id.label_view_bandcut);
+                    viewLabel.append(String.valueOf(count + 1));
+                    EditText lowBand = (EditText) view.findViewById(R.id.lowBand_view_bandcut);
+                    lowBand.setText("0");
+                    EditText highBand = (EditText) view.findViewById(R.id.highBand_view_bandcut);
+                    highBand.setText("0");
+                    border.addView(view);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         this.border = (LinearLayout) this.rootView.findViewById(R.id.draw_fragment_bankcut);
         this.border.removeAllViews();
 
@@ -48,7 +83,7 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         this.seekBarValue = list.size();
         bsAdapter.close();
 
-        // set seekbar progress.
+        // set SeekBar progress.
         this.seekBar.setProgress(list.size());
 
         // add view.
@@ -69,6 +104,7 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         return this.rootView;
     }
 
+    /*
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         Log.d("BC", "onProgressChanged");
@@ -103,6 +139,7 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
     public void onStopTrackingTouch(SeekBar seekBar) {
         //
     }
+    */
 
     @Override
     public void onResume() {
@@ -123,7 +160,6 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
 
         // save data.
         //LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        /*
         LinearLayout border = (LinearLayout) rootView.findViewById(R.id.draw_fragment_bankcut);
         ArrayList<BandCut> list = new ArrayList<>();
 
@@ -148,7 +184,6 @@ public class BandCutSectionFragment extends Fragment implements SeekBar.OnSeekBa
         bsAdapter.open();
         bsAdapter.saveData(list);
         bsAdapter.close();
-        */
 
         this.border.removeAllViews();
     }

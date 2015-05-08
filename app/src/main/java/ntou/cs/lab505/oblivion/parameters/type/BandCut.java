@@ -8,6 +8,11 @@ public class BandCut {
     private int lowBand;
     private int highBand;
 
+    public BandCut() {
+        this.lowBand = 0;
+        this.highBand = 0;
+    }
+
     public BandCut(int lowBand, int highBand) {
         this.lowBand = lowBand;
         this.highBand = highBand;

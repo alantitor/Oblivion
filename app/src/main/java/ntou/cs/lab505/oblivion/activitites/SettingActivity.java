@@ -73,6 +73,7 @@ public class SettingActivity extends FragmentActivity implements ActionBar.TabLi
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         // When the given tab is selected, switch to the corresponding page in the ViewPager.
+        //mAppSectionsPagerAdapter.notifyDataSetChanged();
         if (this.fragmentModeState != 3 && (tab.getPosition() == 3 || tab.getPosition() == 4)) {
             mViewPager.setCurrentItem(-1);
         } else {

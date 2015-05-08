@@ -21,30 +21,34 @@ public class Speaker extends Thread {
 
     private int sampleRate = SoundParameter.frequency;
 
+    /*
+     * 請修改成立體聲!!!!!!!!!!!!!!!!!
+     **/
+
     public Speaker() {
         speakerBufSize = AudioTrack.getMinBufferSize(sampleRate,
                                                         SoundParameter.channelConfiguration,
                                                         SoundParameter.audioEncoding);
         audioTrack = new AudioTrack(AudioManager.STREAM_VOICE_CALL,
                                     sampleRate,
-                                    SoundParameter.channelConfiguration,
+                                    AudioFormat.CHANNEL_CONFIGURATION_MONO,
                                     SoundParameter.audioEncoding,
                                     speakerBufSize,
-                                    AudioTrack.MODE_STATIC);
+                                    AudioTrack.MODE_STREAM);  // AudioTrack.MODE_STATIC
     }
 
     public Speaker(int sampleRate) {
         this.sampleRate = sampleRate;
 
         speakerBufSize = AudioTrack.getMinBufferSize(sampleRate,
-                                                        AudioFormat.CHANNEL_CONFIGURATION_STEREO,
+                                                        SoundParameter.channelConfiguration,  // AudioFormat.CHANNEL_CONFIGURATION_STEREO
                                                         SoundParameter.audioEncoding);
         audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                                     sampleRate,
                                     AudioFormat.CHANNEL_CONFIGURATION_MONO,
                                     SoundParameter.audioEncoding,
                                     speakerBufSize,
-                                AudioTrack.MODE_STREAM);
+                                    AudioTrack.MODE_STREAM);
     }
 
     public void setInputDataQueue(LinkedBlockingQueue<short[]> inputDataQueue) {

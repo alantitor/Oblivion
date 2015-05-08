@@ -23,10 +23,12 @@ public class SoundService extends Service {
     // model objects
     private Microphone microphone;
     private FrequencyShift frequencyShift;
+    private FilterBank filterBank;
     private Speaker speaker;
     // model data queue
     private LinkedBlockingQueue<short[]> microphoneQueue = new LinkedBlockingQueue<short[]>();
     private LinkedBlockingQueue<short[]> frequencyShiftQueue = new LinkedBlockingQueue<short[]>();
+    private LinkedBlockingQueue<short[]> filterBankQueue = new LinkedBlockingQueue<short[]>();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -44,9 +46,7 @@ public class SoundService extends Service {
         int deviceIn = 0;
         IOSAdapter iosAdapter = new IOSAdapter(this.getApplicationContext());
         iosAdapter.open();
-        //String temp = iosAdapter.getData().split(",")[0];
-        //deviceIn = Integer.parseInt(temp.split(":")[1]);
-        //Log.d("SoundService", "deviceIn: " + deviceIn);
+        deviceIn = iosAdapter.getData().getDeviceIn();
         iosAdapter.close();
 
         if (deviceIn == 0) {  // use default mic
@@ -60,6 +60,7 @@ public class SoundService extends Service {
         // create model object.
         microphone = new Microphone();
         frequencyShift = new FrequencyShift();
+        filterBank = new FilterBank();
         if (SoundParameter.frequency == 8000) {
             speaker = new Speaker();
         } else {
@@ -85,6 +86,7 @@ public class SoundService extends Service {
         // start thread.
         microphone.threadStart();
         frequencyShift.threadStart();
+        filterBank.threadStart();
         speaker.threadStart();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -96,6 +98,7 @@ public class SoundService extends Service {
         // stop thread.
         microphone.threadStop();
         frequencyShift.threadStop();
+        filterBank.threadStop();
         speaker.threadStop();
         super.onDestroy();
     }

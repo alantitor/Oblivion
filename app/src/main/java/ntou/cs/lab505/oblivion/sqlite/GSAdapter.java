@@ -34,6 +34,7 @@ public class GSAdapter {
     }
 
     public void saveData(ArrayList<GainAdd> list) {
+
         String[] projection = {TableContract.T_GAIN_USERID,
                                 TableContract.T_GAIN_GROUPID,
                                 TableContract.T_GAIN_L40,
@@ -71,6 +72,16 @@ public class GSAdapter {
     }
 
     public ArrayList getData() {
+
+        int BandNumber = 0;
+        int GainNumber = 0;
+
+        // calculate Band Number
+        BSAdapter bsAdapter = new BSAdapter(mCtx);
+        bsAdapter.open();
+        BandNumber = bsAdapter.getDataCount();
+        bsAdapter.close();
+
         String[] projection = {TableContract.T_GAIN_USERID,
                                 TableContract.T_GAIN_GROUPID,
                                 TableContract.T_GAIN_L40,
@@ -86,6 +97,7 @@ public class GSAdapter {
         Cursor c = mDb.query(TableContract.TABLE_GAIN, projection, selection, selectionArgs, null,  null, sortOrder);
         c.moveToFirst();
 
+        // create data list.
         int l40;
         int l60;
         int l80;
@@ -94,19 +106,25 @@ public class GSAdapter {
         int r80;
         ArrayList<GainAdd> list = new ArrayList<>();
 
-        while (c.isAfterLast() == false) {
-            l40 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_L40)));
-            l60 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_L60)));
-            l80 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_L80)));
-            r40 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_R40)));
-            r60 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_R60)));
-            r80 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_R80)));
+        if (BandNumber == GainNumber) {
+            while (c.isAfterLast() == false) {
+                l40 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_L40)));
+                l60 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_L60)));
+                l80 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_L80)));
+                r40 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_R40)));
+                r60 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_R60)));
+                r80 = Integer.parseInt(c.getString(c.getColumnIndex(TableContract.T_GAIN_R80)));
 
-            //Log.d("GsAdapter", l40 + "," + l60 + "," + l80 + "," + r40 + "," + r60 + "," + r80 + ",");
-            GainAdd ga = new GainAdd(l40, l60, l80, r40, r60, r80);
-            list.add(ga);
-
-            c.moveToNext();
+                //Log.d("GsAdapter", l40 + "," + l60 + "," + l80 + "," + r40 + "," + r60 + "," + r80 + ",");
+                GainAdd ga = new GainAdd(l40, l60, l80, r40, r60, r80);
+                list.add(ga);
+                c.moveToNext();
+            }
+        } else {  // return empty data.
+            GainAdd gainAdd = new GainAdd();
+            for (int i = 0; i < BandNumber; i++) {
+                    list.add(gainAdd);
+            }
         }
 
         return list;
