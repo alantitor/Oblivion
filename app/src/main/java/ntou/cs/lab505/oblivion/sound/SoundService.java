@@ -11,6 +11,7 @@ import ntou.cs.lab505.oblivion.device.Microphone;
 import ntou.cs.lab505.oblivion.device.Speaker;
 import ntou.cs.lab505.oblivion.parameters.SoundParameter;
 import ntou.cs.lab505.oblivion.sound.frequenceshift.FrequencyShift;
+import ntou.cs.lab505.oblivion.sqlite.FSAdapter;
 import ntou.cs.lab505.oblivion.sqlite.IOSAdapter;
 
 /**
@@ -43,23 +44,31 @@ public class SoundService extends Service {
     @Override
     public void onCreate() {
 
+        // get device setting.
         int deviceIn = 0;
+        int deviceOut = 0;
         IOSAdapter iosAdapter = new IOSAdapter(this.getApplicationContext());
         iosAdapter.open();
         deviceIn = iosAdapter.getData().getDeviceIn();
+        deviceOut = iosAdapter.getData().getDeviceOut();
         iosAdapter.close();
 
-        if (deviceIn == 0) {  // use default mic
-            SoundParameter.frequency = 16000;
-        } else if (deviceIn == 1) {  // use bluetooth mic
+        if (deviceIn == 1) {  // use bluetooth mic.
             SoundParameter.frequency = 8000;
-        }  else {
+        } else {  // use default mic.
             SoundParameter.frequency = 16000;
         }
 
+        // get frequency shift setting.
+        int freqShift = 0;
+        FSAdapter fsAdapter = new FSAdapter(this.getApplicationContext());
+        fsAdapter.open();
+        freqShift = fsAdapter.getData().getSemiTones();
+        fsAdapter.close();
+
         // create model object.
         microphone = new Microphone();
-        frequencyShift = new FrequencyShift();
+        frequencyShift = new FrequencyShift(SoundParameter.frequency, freqShift, 0, 0, 0);
         filterBank = new FilterBank();
         if (SoundParameter.frequency == 8000) {
             speaker = new Speaker();
@@ -72,9 +81,6 @@ public class SoundService extends Service {
         frequencyShift.setInputDataQueue(microphoneQueue);
         frequencyShift.setOutputDataQueue(frequencyShiftQueue);
         speaker.setInputDataQueue(frequencyShiftQueue);
-
-        // set sound frequency shift parameters
-        frequencyShift.setSoundParameters(SoundParameter.frequency, 1, 0, 0, 0);
 
         super.onCreate();
     }

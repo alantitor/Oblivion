@@ -22,6 +22,7 @@ public class Speaker extends Thread {
     private int sampleRate = SoundParameter.frequency;
 
     /*
+     * if sample rate is 16000
      * 請修改成立體聲!!!!!!!!!!!!!!!!!
      **/
 
@@ -31,7 +32,7 @@ public class Speaker extends Thread {
                                                         SoundParameter.audioEncoding);
         audioTrack = new AudioTrack(AudioManager.STREAM_VOICE_CALL,
                                     sampleRate,
-                                    AudioFormat.CHANNEL_CONFIGURATION_MONO,
+                                    SoundParameter.channelConfiguration,
                                     SoundParameter.audioEncoding,
                                     speakerBufSize,
                                     AudioTrack.MODE_STREAM);  // AudioTrack.MODE_STATIC
@@ -39,13 +40,12 @@ public class Speaker extends Thread {
 
     public Speaker(int sampleRate) {
         this.sampleRate = sampleRate;
-
         speakerBufSize = AudioTrack.getMinBufferSize(sampleRate,
-                                                        SoundParameter.channelConfiguration,  // AudioFormat.CHANNEL_CONFIGURATION_STEREO
+                                                        AudioFormat.CHANNEL_CONFIGURATION_STEREO,
                                                         SoundParameter.audioEncoding);
         audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                                     sampleRate,
-                                    AudioFormat.CHANNEL_CONFIGURATION_MONO,
+                                    AudioFormat.CHANNEL_CONFIGURATION_STEREO,
                                     SoundParameter.audioEncoding,
                                     speakerBufSize,
                                     AudioTrack.MODE_STREAM);

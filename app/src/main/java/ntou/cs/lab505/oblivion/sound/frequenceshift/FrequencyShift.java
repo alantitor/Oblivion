@@ -3,6 +3,8 @@ package ntou.cs.lab505.oblivion.sound.frequenceshift;
 import android.util.Log;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import ntou.cs.lab505.oblivion.parameters.type.FreqST;
+
 /**
  * Created by alan on 3/16/15.
  */
@@ -29,6 +31,14 @@ public class FrequencyShift extends Thread {
         this.pitchSemiTones = 0;
         this.rateChange = 0.0f;
         this.tempoChange = 0.0f;
+    }
+
+    public FrequencyShift(int sampleRate, int channels, int pitchSemiTones, int rateChange, int tempoChange) {
+        this.sampleRate = sampleRate;
+        this.channels = channels;
+        this.pitchSemiTones = pitchSemiTones;
+        this.rateChange = rateChange;
+        this.tempoChange = tempoChange;
     }
 
     /**
