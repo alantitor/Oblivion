@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import ntou.cs.lab505.oblivion.parameters.type.BandCut;
+import ntou.cs.lab505.oblivion.parameters.type.FilterBankUnit;
 import ntou.cs.lab505.oblivion.parameters.type.GainAdd;
 import ntou.cs.lab505.oblivion.sound.IIRFilter.IIR;
 
@@ -20,9 +21,6 @@ public class FilterBank extends Thread{
 
     // 記錄濾波器個數
     private int filterBankNumber;
-    // data structure.
-    private BandCut bandCut;
-    private GainAdd gainAdd;
     // 內建預設頻帶切割
     private IIR iir_band1;
     private IIR iir_band2;
@@ -45,18 +43,37 @@ public class FilterBank extends Thread{
     /**
      * Constructor
      */
-    public FilterBank() {
+    public FilterBank(ArrayList<BandCut> bandCutArrayList, ArrayList<GainAdd> gainAddArrayList) {
+
         initialIIR();
 
+        filterBankNumber = bandCutArrayList.size();
 
+        iir_bands = new IIR[filterBankNumber];
+        gainL40 = new Gain[filterBankNumber];
+        gainL60 = new Gain[filterBankNumber];
+        gainL80 = new Gain[filterBankNumber];
+        gainR40 = new Gain[filterBankNumber];
+        gainR60 = new Gain[filterBankNumber];
+        gainR80 = new Gain[filterBankNumber];
+
+        for (int i = 0; i < filterBankNumber; i++) {
+            gainL40[i] = new Gain(gainAddArrayList.get(i).getL40());
+            gainL60[i] = new Gain(gainAddArrayList.get(i).getL60());
+            gainL80[i] = new Gain(gainAddArrayList.get(i).getL80());
+            gainR40[i] = new Gain(gainAddArrayList.get(i).getR40());
+            gainR60[i] = new Gain(gainAddArrayList.get(i).getR60());
+            gainR80[i] = new Gain(gainAddArrayList.get(i).getR80());
+
+            iir_bands[i] = new IIR(FILTERORDER, (double) bandCutArrayList.get(i).getLowBand(), (double) bandCutArrayList.get(i).getHighBand());
+        }
     }
 
-    public FilterBank(BandCut bandCut, GainAdd gainAdd) {
-        this.bandCut = bandCut;
-        this.gainAdd = gainAdd;
+    public FilterBank(ArrayList<FilterBankUnit> dataList) {
+
         initialIIR();
 
-
+        filterBankNumber = dataList.size();
 
 
 

@@ -26,8 +26,6 @@ public class PlayActivity extends Activity {
         startButton = (ImageButton) findViewById(R.id.start_activity_play);
 
 
-
-
     }
 
     /**
