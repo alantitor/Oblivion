@@ -1,9 +1,8 @@
 package ntou.cs.lab505.oblivion.sound.frequenceshift;
 
 import android.util.Log;
-import java.util.concurrent.LinkedBlockingQueue;
 
-import ntou.cs.lab505.oblivion.parameters.type.FreqST;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by alan on 3/16/15.
@@ -87,6 +86,10 @@ public class FrequencyShift extends Thread {
     public void threadStop() {
         this.threadState = false;
         this.interrupt();
+    }
+
+    public boolean isThreadState() {
+        return this.threadState;
     }
 
     /**

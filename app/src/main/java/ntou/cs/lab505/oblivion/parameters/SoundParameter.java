@@ -10,8 +10,8 @@ public class SoundParameter {
 
     public static int frequency = 16000;	//  44100 SDK 使用藍芽 取樣頻率 只能為8000
     //public static int frequency = 44100;
-    //public static final int channelConfiguration = AudioFormat.CHANNEL_CONFIGURATION_MONO;
-    public static final int channelConfiguration = AudioFormat.CHANNEL_IN_MONO;
+    public static final int channelConfiguration = AudioFormat.CHANNEL_CONFIGURATION_MONO;
+    //public static final int channelConfiguration = AudioFormat.CHANNEL_IN_MONO;
     public static final int channelConfigurationStereo = AudioFormat.CHANNEL_IN_STEREO;
     public static final int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
     public static final int PureTonefrequency = 16000;

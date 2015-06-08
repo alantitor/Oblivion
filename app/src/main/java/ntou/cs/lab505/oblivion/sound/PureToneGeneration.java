@@ -47,4 +47,8 @@ public class PureToneGeneration {
 
         return sin;
     }
+
+    public static int pureToneExpectedSize(int sampleRate, int sec) {
+        return sampleRate * sec;
+    }
 }

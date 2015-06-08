@@ -81,6 +81,25 @@ public class FilterBankParameter {
 
         return filterBankUnitArrayList;
     }
+
+    public static ArrayList getDefaultSetting2() {
+
+        ArrayList<FilterBankUnit> filterBankUnitArrayList = new ArrayList<>();
+        FilterBankUnit filterBankUnit;
+
+        filterBankUnit = new FilterBankUnit(new BandCut(143, 280), new GainAdd());
+        filterBankUnitArrayList.add(filterBankUnit);
+        filterBankUnit = new FilterBankUnit(new BandCut(281, 561), new GainAdd());
+        filterBankUnitArrayList.add(filterBankUnit);
+        filterBankUnit = new FilterBankUnit(new BandCut(561, 1120), new GainAdd());
+        filterBankUnitArrayList.add(filterBankUnit);
+        filterBankUnit = new FilterBankUnit(new BandCut(1110, 2240), new GainAdd());
+        filterBankUnitArrayList.add(filterBankUnit);
+        filterBankUnit = new FilterBankUnit(new BandCut(2230, 3540), new GainAdd());
+        filterBankUnitArrayList.add(filterBankUnit);
+
+        return filterBankUnitArrayList;
+    }
 }
 
 

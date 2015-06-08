@@ -53,6 +53,10 @@ public class Microphone extends Thread {
         this.interrupt();
     }
 
+    public boolean isThreadState() {
+        return this.threadState;
+    }
+
     /**
      * thread content.
      */

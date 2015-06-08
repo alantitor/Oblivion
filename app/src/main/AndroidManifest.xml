@@ -39,10 +39,10 @@
             android:label="@string/title_activity_test" >
         </activity>
         <activity
-            android:uiOptions="splitActionBarWhenNarrow"
-            android:theme="@android:style/Theme.Holo"
             android:name=".activitites.SettingActivity"
-            android:label="@string/title_activity_setting" >
+            android:label="@string/title_activity_setting"
+            android:theme="@android:style/Theme.Holo"
+            android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.UI_OPTIONS"
                 android:value="splitActionBarWhenNarrow" />
@@ -55,10 +55,16 @@
             android:name=".activitites.PlayActivity"
             android:label="@string/title_activity_play" >
         </activity>
+
         <service
-            android:name="ntou.cs.lab505.oblivion.sound.SoundService"
+            android:name=".sound.SoundService"
             android:enabled="true" >
         </service>
+
+        <activity
+            android:name=".activitites.PureToneTestActivity"
+            android:label="@string/title_activity_pure_tone_test" >
+        </activity>
     </application>
 
 </manifest>
