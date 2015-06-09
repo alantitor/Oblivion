@@ -280,6 +280,8 @@ public class IIR2 {
     private double[] res = null;
     public short[] process(short[] value)
     {
+        Log.d("IIR", "process: value length = " + value.length);
+
         for(int i=0;i<value.length;i++)
         {
 

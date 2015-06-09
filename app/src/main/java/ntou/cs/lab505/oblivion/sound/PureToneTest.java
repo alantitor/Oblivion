@@ -1,7 +1,12 @@
 package ntou.cs.lab505.oblivion.sound;
 
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import ntou.cs.lab505.oblivion.device.Speaker;
@@ -22,6 +27,8 @@ public class PureToneTest extends Thread {
 
     LinkedBlockingQueue<short[]> pureToneQueue = new LinkedBlockingQueue<short[]>();
     LinkedBlockingQueue<short[]> freqShiftQueue = new LinkedBlockingQueue<short[]>();
+    LinkedBlockingQueue<short[][]> filterBankQueue = new LinkedBlockingQueue<short[][]>();
+    LinkedBlockingQueue<short[]> tempQueue = new LinkedBlockingQueue<short[]>();
 
     int freqValue;
     int semiValue;
@@ -77,8 +84,10 @@ public class PureToneTest extends Thread {
 
 
         // generate puret tone.
-        for (int count = 1; count <= harmValue; count++) {
-            int tempFreq = freqValue * count;
+        int tempFreq = freqValue;
+        for (int count = 0; count < harmValue; count++) {
+            tempFreq += 200;  // <---- tempFreq += tempFreq;
+            Log.d("PureToneTest", "tempFreq: " + tempFreq);
             if (tempFreq > 7000) {
                 // wrong message.
                 break;
@@ -97,31 +106,44 @@ public class PureToneTest extends Thread {
                     soundVector[trace] += tempSoundVector[trace];
                 }
             }
+
+            //tempFreq += tempFreq;
         }
 
 
-        soundVector = soundChannelProcess(soundVector, channelValue);
+        saveVectorToFile(soundVector, "origin");
 
 
 
         // ************************
         // filterBank test.
         FilterBank2 filterBank;
-        filterBank = new FilterBank2(500, 1000, 5, 0);
+        filterBank = new FilterBank2(sampleRate, lowBandValue, highBandValue);
 
+        //short[][] soundBandsVector = FilterBank.process(soundVector);
 
         // ************************
 
 
+        soundVector = soundChannelProcess(soundVector, channelValue);
+
+
         // setting queues.
         pureToneQueue.add(soundVector);
+
         frequencyShift.setInputDataQueue(pureToneQueue);
         frequencyShift.setOutputDataQueue(freqShiftQueue);
         speaker.setInputDataQueue(freqShiftQueue);
 
 
+        tempQueue.add(soundVector);
+        filterBank.setInputDataQueue(tempQueue);
+        filterBank.setOutputDataQueue(filterBankQueue);
+
+
         speaker.threadStart();
         frequencyShift.threadStart();
+        filterBank.threadStart();
 
         try {
             sleep(secValue * 1000);
@@ -131,6 +153,7 @@ public class PureToneTest extends Thread {
 
         speaker.threadStop();
         frequencyShift.threadStop();
+        filterBank.threadStop();
         Log.d("PureToneTest", "process stop");
         this.threadStop();
     }
@@ -163,4 +186,26 @@ public class PureToneTest extends Thread {
 
         return outputSoundVector;
     }
+
+    private void saveVectorToFile(short[] data, String fileName) {
+        File file = new File(Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName + ".txt");
+        FileOutputStream fOut;
+        OutputStreamWriter fWriter;
+
+        if (data == null) {
+            return ;
+        }
+
+        try {
+            file.createNewFile();
+            fOut = new FileOutputStream(file);
+            fWriter = new OutputStreamWriter(fOut);
+            for (int i = 0; i < data.length; i++) {
+                fWriter.append(data[i] + ",");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
